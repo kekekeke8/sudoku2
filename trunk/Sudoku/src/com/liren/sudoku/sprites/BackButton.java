@@ -36,7 +36,8 @@ public class BackButton extends AbstractSprite {
 			rotate++;
 		
 		trans = 30;
-		matrix.setRotate(rotate, 15f, 15f);		
+		matrix.setSkew(15f, 15f);
+		//matrix.setRotate(rotate, 15f, 15f);		
 		matrix.postTranslate(trans, trans);
 		canvas.drawBitmap(bitmap, matrix, paint);
 	}

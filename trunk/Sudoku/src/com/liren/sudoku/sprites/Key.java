@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.util.Log;
@@ -33,13 +32,14 @@ public class Key extends AbstractSprite {
 	public boolean IsPencial = false;;
 
 	public RectF Rect = new RectF();
-	private Paint paint = new Paint();
 	private Bitmap background = BitmapFactory.decodeResource(
 			context.getResources(), R.drawable.point1);
 	private Bitmap background_empty = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.point_empty);
+			context.getResources(), R.drawable.point_empty2);
 
-
+	private Bitmap xiangpi = BitmapFactory.decodeResource(
+			context.getResources(), R.drawable.xp);
+	
 	public void Draw(Canvas canvas) {
 		int x = X + 30 * (IDx);
 		int y = Y + 30 * (IDy);
@@ -59,11 +59,11 @@ public class Key extends AbstractSprite {
 			canvas.drawBitmap(background_empty, rs, Rect, paint);
 		}
 		if(this.Value != 0){
-			paint.setColor(Color.WHITE);
+			paint.setColor(Color.argb(255, 94, 48, 16));
 			paint.setTextSize(22);
-			canvas.drawText(Integer.toString(Value), x + 10, y + 25, paint);
+			canvas.drawText(Integer.toString(Value), x + 9, y + 23, paint);
 		}else{
-			
+			canvas.drawBitmap(xiangpi, x + 1, y + 1, paint);
 		}
 	}
 

@@ -29,7 +29,7 @@ public class KeyBoard extends AbstractSprite {
 	}
 
 	public void Draw(Canvas canvas) {
-		for (int i = 0; i < 1; i++) {
+		for (int i = 0; i < 2; i++) {
 			for (int j = 0; j < 10; j++) {
 				{
 					keys[i][j].Draw(canvas);

@@ -3,7 +3,6 @@ package com.liren.sudoku.sprites;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
@@ -21,7 +20,7 @@ public class ErrorShower extends AbstractSprite {
 
 	public void Draw(Canvas canvas) {
 		error = Game.sudoku.Model.error;
-		Paint paint = new Paint();
+		
 		if (error < 1)
 			paint.setColor(Color.WHITE);
 		else
