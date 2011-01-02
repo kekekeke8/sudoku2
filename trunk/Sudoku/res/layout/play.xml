@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <TextView android:text="Sudoku v1" android:id="@+id/TextView01"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:textSize="44px" android:layout_margin="20px">
+    </TextView>
+    <Button android:id="@+id/btnFlash" android:text="@string/flash"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px" android:layout_marginTop="10px">
+    </Button>
+    <Button android:id="@+id/btnEasy" android:text="@string/easy"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnMedium" android:text="@string/medium"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnHard" android:text="@string/hard"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnExpert" android:text="@string/expert"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnResume" android:text="@string/resume"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+</LinearLayout>

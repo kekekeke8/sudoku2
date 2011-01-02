@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+	<TextView android:text="Sudoku v1" android:id="@+id/TextView01"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:textSize="44px" android:layout_margin="20px">
+	</TextView>
+	<Button android:id="@+id/btnPlay" android:text="@string/play"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_marginRight="20px" android:layout_marginLeft="120px" android:layout_marginTop="10px">
+	</Button>
+	<Button android:id="@+id/btnStatus" android:text="@string/status"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnOptions" android:text="@string/options"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnHelp" android:text="@string/help"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnAbout" android:text="@string/about"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+    <Button android:id="@+id/btnExit" android:text="@string/exit"
+        android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginRight="20px" android:layout_marginLeft="120px">
+    </Button>
+</LinearLayout>
