@@ -18,7 +18,6 @@ import android.view.SurfaceView;
 import com.liren.game.ISprite;
 import com.liren.game.RotateSprite;
 import com.liren.sudoku.model.SudokuModel;
-import com.liren.sudoku.sprites.BackButton;
 import com.liren.sudoku.sprites.CostTime;
 import com.liren.sudoku.sprites.ErrorShower;
 import com.liren.sudoku.sprites.KeyBoard;
