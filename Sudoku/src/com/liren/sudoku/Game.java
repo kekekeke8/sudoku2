@@ -18,6 +18,7 @@ import android.view.SurfaceView;
 import com.liren.game.ISprite;
 import com.liren.game.RotateSprite;
 import com.liren.sudoku.model.SudokuModel;
+import com.liren.sudoku.sprites.BackButton;
 import com.liren.sudoku.sprites.CostTime;
 import com.liren.sudoku.sprites.ErrorShower;
 import com.liren.sudoku.sprites.KeyBoard;
@@ -54,13 +55,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		Sprites.add(new ErrorShower(context));
 		Tip tip = Tip.create(context);
 		Sprites.add(tip);
-		
-		RotateSprite rs = new RotateSprite(context,R.drawable.point1);
-		rs.X = 15;
-		rs.Y = 15;
-		rs.Play = true;
-		
-		Sprites.add(rs);
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,

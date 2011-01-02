@@ -1,6 +1,7 @@
 package com.liren.game;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.graphics.RectF;
 
 public abstract class AbstractSprite implements ISprite {
@@ -10,7 +11,7 @@ public abstract class AbstractSprite implements ISprite {
 		this.X = x;
 		this.Y = y;
 	}
-
+	protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	public Context context = null;
 	
 	public RectF GetRect(){
