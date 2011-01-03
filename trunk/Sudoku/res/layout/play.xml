@@ -29,5 +29,5 @@
     <Button android:id="@+id/btnResume" android:text="@string/resume"
         android:layout_width="fill_parent" android:layout_height="wrap_content"
         android:layout_marginRight="20px" android:layout_marginLeft="120px">
-    </Button>
+    </Button> 
 </LinearLayout>

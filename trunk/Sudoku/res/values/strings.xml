@@ -17,4 +17,8 @@
 	
 	<string name="copyright">Copyright(C) 2010 Liren</string>
     <string name="error">Error</string>
+    <string name="confirm_abandon">Are you sure you want to abandon the saved game?</string>
+    <string name="confirm">Confirm</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string> 
 </resources>
