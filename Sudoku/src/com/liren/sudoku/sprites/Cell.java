@@ -159,6 +159,7 @@ public class Cell extends AbstractSprite {
 			}
 
 			this.nValue = value;
+			SetSelected(true);
 		}
 	}
 

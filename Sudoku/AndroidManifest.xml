@@ -9,7 +9,7 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="Play"></activity>
+		<activity android:name="Play" android:screenOrientation="portrait" ></activity>
 	</application>
 	<uses-sdk android:minSdkVersion="3" />
 </manifest> 
