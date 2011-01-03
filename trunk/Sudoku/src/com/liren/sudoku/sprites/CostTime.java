@@ -3,7 +3,6 @@ package com.liren.sudoku.sprites;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
@@ -22,9 +21,13 @@ public class CostTime extends AbstractSprite {
 	RectF rect = new RectF(140, 407, 175, 425);
 	String timecostText = "";
 
+	long timecost = 0;
 	public void Draw(Canvas canvas) {
-		long timecost = (System.currentTimeMillis() - startTime) / 1000;
-		Game.sudoku.Model.timecost = timecost;
+		if(!Game.sudoku.Success)
+		{
+			timecost = (System.currentTimeMillis() - startTime) / 1000;
+			Game.sudoku.Model.timecost = timecost;
+		}
 		String text = (Long.toString(timecost / 60).length() == 1 ? "0"
 				+ Long.toString(timecost / 60) : Long.toString(timecost / 60))
 				+ ":"

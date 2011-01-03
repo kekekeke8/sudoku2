@@ -8,7 +8,6 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
-import android.widget.Toast;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.Game;
@@ -19,7 +18,7 @@ public class Tip extends AbstractSprite {
 	public static Tip create(Context context) {
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.tip);
-		Tip tip = new Tip(context, 60, 60, bitmap);
+		Tip tip = new Tip(context, 50, 50, bitmap);
 		tip.X = 300;
 		tip.Y = 20;
 		return tip;
@@ -44,7 +43,7 @@ public class Tip extends AbstractSprite {
 				images[counter] = Bitmap.createBitmap(bitmap, x * Width, y
 						* Height, Width, Height);
 				counter++;
-			}
+			} 
 		}
 	}
 
@@ -56,9 +55,13 @@ public class Tip extends AbstractSprite {
 
 	@Override
 	public void Draw(Canvas canvas) {
-		if(Game.sudoku.Model.tipcount > 0){
-			canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, 60, 60), this.GetRect(), paint);
-			nextFrame();
+		if(!Game.sudoku.Success){
+			if(Game.sudoku.Model.tipcount > 0){
+				canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, 60, 60), this.GetRect(), paint);
+				nextFrame();
+			}else{
+				canvas.drawBitmap(images[0], new Rect(0, 0, 60, 60), this.GetRect(), paint);
+			}
 		}else{
 			canvas.drawBitmap(images[0], new Rect(0, 0, 60, 60), this.GetRect(), paint);
 		}
@@ -79,10 +82,10 @@ public class Tip extends AbstractSprite {
 			int value = Game.sudoku.getValue();
 			if (value != 0) {
 				if (Game.sudoku.Model.tipcount > 0) {
-					Toast.makeText(context, "The value is:" + value,
-							Toast.LENGTH_LONG).show();
-					Game.sudoku.setValue(value);
-					Game.sudoku.Model.tipcount--;
+					if(Game.sudoku.getSelected() != null){
+						Game.sudoku.setValue(value);
+						Game.sudoku.Model.tipcount--;
+					}
 				}
 			}
 		}

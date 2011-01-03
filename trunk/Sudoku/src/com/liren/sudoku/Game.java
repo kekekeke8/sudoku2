@@ -16,9 +16,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.liren.game.ISprite;
-import com.liren.game.RotateSprite;
 import com.liren.sudoku.model.SudokuModel;
-import com.liren.sudoku.sprites.BackButton;
 import com.liren.sudoku.sprites.CostTime;
 import com.liren.sudoku.sprites.ErrorShower;
 import com.liren.sudoku.sprites.KeyBoard;
@@ -55,6 +53,7 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		Sprites.add(new ErrorShower(context));
 		Tip tip = Tip.create(context);
 		Sprites.add(tip);
+		//Sprites.add(new BackButton(context));
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
@@ -115,9 +114,10 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		super.onTouchEvent(event);
-		Log.d("d", "touch at " + event.getX() + "," + event.getY());
-		for (ISprite o : Sprites) {
-			o.onTouchEvent(event);
+		if(!sudoku.Success){
+			for (ISprite o : Sprites) {
+				o.onTouchEvent(event);
+			}
 		}
 		return false;
 	}
