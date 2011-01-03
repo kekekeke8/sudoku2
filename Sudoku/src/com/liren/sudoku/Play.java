@@ -67,9 +67,11 @@ public class Play extends Activity implements View.OnClickListener {
 
 	@Override
 	protected void onPause() {
-		Log.d("D","Pause Save the game.");
 		SudokuModel model = Game.sudoku.Model;
-		if(model.finish == 0) model.finish = 1;
+
+		if(model.finish == 0) 
+			model.finish = 1;
+		
 		model.data = Game.sudoku.GetSudokuDatas();
 		Log.d("D","Save game:" + model);
 		SQLHelper sql = new SQLHelper(this);

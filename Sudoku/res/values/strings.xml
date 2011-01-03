@@ -16,5 +16,5 @@
 	<string name="resume">Resume</string>
 	
 	<string name="copyright">Copyright(C) 2010 Liren</string>
-    
+    <string name="error">Error</string>
 </resources>

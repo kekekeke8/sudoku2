@@ -1,15 +1,22 @@
 package com.liren.sudoku.sprites;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.Game;
+import com.liren.sudoku.R;
 
 public class ErrorShower extends AbstractSprite {
+
+	private Bitmap bitmap = BitmapFactory.decodeResource(
+			context.getResources(), R.drawable.error);
 
 	public ErrorShower(Context context) {
 		super(context);
@@ -20,12 +27,21 @@ public class ErrorShower extends AbstractSprite {
 
 	public void Draw(Canvas canvas) {
 		error = Game.sudoku.Model.error;
-		
+
 		if (error < 1)
 			paint.setColor(Color.WHITE);
 		else
 			paint.setColor(Color.RED);
-		canvas.drawText("Error:" + Integer.toString(error), 16, 420, paint);
+		if (error > 3)
+			
+			canvas.drawText(context.getResources().getString(R.string.error) + ":" + Integer.toString(error), 16, 420, paint);
+		else {
+			for (int i = 0; i < error; i++) {
+				canvas.drawBitmap(bitmap, new Rect(0, 0, bitmap.getWidth(),
+						bitmap.getHeight()), 
+						new Rect(i * 19 + 6, 405,i * 19 + 32, 425), paint);
+			}
+		}
 	}
 
 	public void onTouchEvent(MotionEvent event) {

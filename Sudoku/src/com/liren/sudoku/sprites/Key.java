@@ -70,7 +70,6 @@ public class Key extends AbstractSprite {
 
 	public void onTouchEvent(MotionEvent event) {
 		if (Rect.contains(event.getX(), event.getY())) {
-			Log.d("Debug", "Touch in Point ID:" + IDx + "," + IDy);
 			if (this.IsPen) {
 				Game.sudoku.setValue(this.Value);
 			} else if (this.IsPencial) {

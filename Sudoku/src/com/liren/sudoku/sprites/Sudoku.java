@@ -1,15 +1,16 @@
 package com.liren.sudoku.sprites;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.util.Log;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
+import com.liren.sudoku.R;
 import com.liren.sudoku.model.SudokuModel;
 
 public class Sudoku extends AbstractSprite {
@@ -21,13 +22,14 @@ public class Sudoku extends AbstractSprite {
 		this.Width = width;
 		this.Height = height;
 		this.Model = sudokuModel;
-		
+
 		mFace = Typeface.MONOSPACE;
-		//Typeface.createFromAsset(context.getAssets(),"cafe.ttf"); 
+		// Typeface.createFromAsset(context.getAssets(),"cafe.ttf");
 		InitSudoku(x, y, width, height, context);
 	}
-	private Typeface mFace = null;
 
+	private Typeface mFace = null;
+	private Bitmap sucess = BitmapFactory.decodeResource(context.getResources(), R.drawable.sucess);
 	public SudokuModel Model = null;
 
 	private void InitSudoku(int x, int y, int width, int height, Context context) {
@@ -41,14 +43,15 @@ public class Sudoku extends AbstractSprite {
 				cell.oValue = Integer.parseInt(s.substring(0, 1));
 				cell.nValue = Integer.parseInt(s.substring(0, 1));
 				cell.CellType = Integer.parseInt(s.substring(1, 2));
-				if (cell.CellType == 0) cell.nValue = 0;
+				if (cell.CellType == 0)
+					cell.nValue = 0;
 				cell.IDx = i;
 				cell.IDy = j;
 				cell.ShowError = Model.showError;
 				cell.SetSelected(false);
 				cell.parent = this;
 				cell.mFace = this.mFace;
-				cells[i][j] = cell;				
+				cells[i][j] = cell;
 				count++;
 			}
 		}
@@ -78,10 +81,8 @@ public class Sudoku extends AbstractSprite {
 			}
 		}
 
-		if (this.Success) {			
-			paint.setColor(Color.RED);
-			paint.setTextSize(44);
-			canvas.drawText("Success!", 85, 170, paint);
+		if (this.Success) {	
+			canvas.drawBitmap(sucess, 60, 120, paint);
 		}
 	}
 
@@ -90,7 +91,8 @@ public class Sudoku extends AbstractSprite {
 		RectF rect = new RectF(X, Y, Width + X, Height + Y);
 		Log.d("D", "Sudoku rect is:" + rect);
 		needClearSelect = (rect.contains(event.getX(), event.getY()));
-		if (needClearSelect) Log.d("D", "Map selected");
+		if (needClearSelect)
+			Log.d("D", "Map selected");
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (needClearSelect) {
@@ -117,24 +119,32 @@ public class Sudoku extends AbstractSprite {
 		}
 	}
 
+	public Cell getSelected(){
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				if (cells[i][j].GetSelected()) {
+					return cells[i][j];
+				}
+			}
+		}return null;
+	}
+	
 	public void setValue(int value) {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (cells[i][j].GetSelected()) {
-					if (value != 0) {
-						//cells[i][j].nValue = value;
+					cells[i][j].SetValue(value);
+					if (value != 0) {						
 						if (cells[i][j].nValue != cells[i][j].oValue) {
-							Model.error++;
+							this.Model.error++;
 						}
 					}
-					cells[i][j].SetValue(value);
 					this.checkSuccess(i, j);
 				}
 			}
 		}
 	}
 
-	// 返回答案
 	public int getValue() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -148,11 +158,10 @@ public class Sudoku extends AbstractSprite {
 
 	public boolean Success = false;
 
-	private void DoComplete(boolean sucess) {
-		if (sucess) {
+	private void doComplete() {
+		if (this.Success) {
 			for (int i = 0; i < 9; i++) {
 				for (int j = 0; j < 9; j++) {
-
 					this.cells[i][j].Play = true;
 				}
 			}
@@ -169,35 +178,57 @@ public class Sudoku extends AbstractSprite {
 		}
 		if (success) {
 			Success = true;
-			DoComplete(true);
+			doComplete();
 			this.Model.finish = 2;
 		} else {
 			this.checkComplete(x, y);
 		}
-		Log.d("D", "Sucess status:" + success);
 		return success;
 	}
 
 	private void checkComplete(int x, int y) {
-		//
 		int xx = x / 3;
 		int yy = y / 3;
-		Log.d("D","checkComplete " + xx + "" +yy);
+		Log.d("D", "checkComplete " + xx + "" + yy);
 		boolean complete = true;
 		for (int i = xx * 3; i < (xx + 1) * 3; i++) {
 			for (int j = yy * 3; j < (yy + 1) * 3; j++) {
-				Log.d("D","checkComplete " + i +"," + j);
-				if(this.cells[i][j].nValue == 0){
+				if (cells[i][j].oValue != cells[i][j].nValue) {
 					complete = false;
 				}
-			}
+			} 
 		}
-		if(complete){
+		if (complete) {
 			for (int i = xx * 3; i < (xx + 1) * 3; i++) {
 				for (int j = yy * 3; j < (yy + 1) * 3; j++) {
 					this.cells[i][j].Play = true;
-					Log.d("D","set complete Play" + i +"," + j);
 				}
+			}
+		}
+
+		// lie
+		complete = true;
+		for (int j = 0; j < 9; j++) {
+			if (cells[x][j].oValue != cells[x][j].nValue) {
+				complete = false;
+			}
+		}
+		if (complete) {
+			for (int j = 0; j < 9; j++) {
+				this.cells[x][j].Play = true;
+			}
+		}
+		
+		// hang
+		complete = true;
+		for (int i = 0; i < 9; i++) {
+			if (cells[i][y].oValue != cells[i][y].nValue) {
+				complete = false;
+			}
+		}
+		if (complete) {
+			for (int i = 0; i < 9; i++) {
+				this.cells[i][y].Play = true;
 			}
 		}
 	}
