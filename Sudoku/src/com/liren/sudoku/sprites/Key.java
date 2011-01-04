@@ -11,7 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
-import com.liren.sudoku.Game;
+import com.liren.sudoku.GameView;
 import com.liren.sudoku.R;
 
 public class Key extends AbstractSprite {
@@ -71,9 +71,9 @@ public class Key extends AbstractSprite {
 	public void onTouchEvent(MotionEvent event) {
 		if (Rect.contains(event.getX(), event.getY())) {
 			if (this.IsPen) {
-				Game.sudoku.setValue(this.Value);
+				GameView.sudoku.setValue(this.Value);
 			} else if (this.IsPencial) {
-				Game.sudoku.setPencialValue(this.Value);
+				GameView.sudoku.setPencialValue(this.Value);
 			}
 		}		
 	}

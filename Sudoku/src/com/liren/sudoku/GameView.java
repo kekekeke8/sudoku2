@@ -24,18 +24,17 @@ import com.liren.sudoku.sprites.Status;
 import com.liren.sudoku.sprites.Sudoku;
 import com.liren.sudoku.sprites.Tip;
 
-public class Game extends SurfaceView implements SurfaceHolder.Callback,
+public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 		Runnable {
 
 	boolean mbLoop = false;
 	SurfaceHolder mSurfaceHolder = null;
-
 	public List<ISprite> Sprites = new ArrayList<ISprite>();
 
 	public static Sudoku sudoku = null;
 	public static KeyBoard keyboard = null;
 	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);
-	public Game(Context context,SudokuModel sudokumodel) {
+	public GameView(Context context,SudokuModel sudokumodel) {
 		super(context);
 		Log.d("D",sudokumodel.data);
 		mSurfaceHolder = this.getHolder();
@@ -53,7 +52,6 @@ public class Game extends SurfaceView implements SurfaceHolder.Callback,
 		Sprites.add(new ErrorShower(context));
 		Tip tip = Tip.create(context);
 		Sprites.add(tip);
-		//Sprites.add(new BackButton(context));
 	}
 
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
