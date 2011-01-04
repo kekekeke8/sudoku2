@@ -7,9 +7,10 @@ import android.graphics.RectF;
 public abstract class AbstractSprite implements ISprite {
 	public int X = 0, Y = 0, Width = 0, Height = 0;
 
-	public void setPosition(int x, int y) {
+	public ISprite setPosition(int x, int y) {
 		this.X = x;
 		this.Y = y;
+		return this;
 	}
 	protected Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
 	public Context context = null;

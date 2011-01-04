@@ -7,7 +7,7 @@ import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
-import com.liren.sudoku.Game;
+import com.liren.sudoku.GameView;
 
 public class CostTime extends AbstractSprite {
 	private long startTime = System.currentTimeMillis();
@@ -15,7 +15,7 @@ public class CostTime extends AbstractSprite {
 	public CostTime(Context context) {
 		super(context);
 		this.startTime = System.currentTimeMillis()
-				- Game.sudoku.Model.timecost * 1000;
+				- GameView.sudoku.Model.timecost * 1000;
 	}
 
 	RectF rect = new RectF(140, 407, 175, 425);
@@ -23,10 +23,10 @@ public class CostTime extends AbstractSprite {
 
 	long timecost = 0;
 	public void Draw(Canvas canvas) {
-		if(!Game.sudoku.Success)
+		if(!GameView.sudoku.Success)
 		{
 			timecost = (System.currentTimeMillis() - startTime) / 1000;
-			Game.sudoku.Model.timecost = timecost;
+			GameView.sudoku.Model.timecost = timecost;
 		}
 		String text = (Long.toString(timecost / 60).length() == 1 ? "0"
 				+ Long.toString(timecost / 60) : Long.toString(timecost / 60))

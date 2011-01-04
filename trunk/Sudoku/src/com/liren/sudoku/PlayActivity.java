@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.liren.sudoku.model.SQLHelper;
 import com.liren.sudoku.model.SudokuModel;
 
-public class Play extends Activity implements View.OnClickListener {
+public class PlayActivity extends Activity implements View.OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class Play extends Activity implements View.OnClickListener {
 	}
 
 	private SudokuModel sudoku = null;
-	private Game game = null;
+	private GameView game = null;
 
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -53,7 +53,7 @@ public class Play extends Activity implements View.OnClickListener {
 			break;
 		case R.id.btnResume:
 			if(sudoku != null){
-				game = new Game(this, sudoku);			
+				game = new GameView(this, sudoku);			
 				this.setContentView(game);
 			}else{
 				Toast.makeText(this, "No more game in resume.", Toast.LENGTH_SHORT).show();
@@ -72,7 +72,7 @@ public class Play extends Activity implements View.OnClickListener {
 			builder.setTitle(this.getResources().getString(R.string.confirm));
 			builder.setNegativeButton(this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener(){
 				public void onClick(DialogInterface dialog, int which) {
-					SQLHelper sql = new SQLHelper(Play.this);
+					SQLHelper sql = new SQLHelper(PlayActivity.this);
 					sql.abandonGame();
 					LoadNewGame();
 				}
@@ -89,8 +89,8 @@ public class Play extends Activity implements View.OnClickListener {
 	private void LoadNewGame() {
 		sudoku = LoadGame(selectLevel);
 		if(sudoku != null){
-			game = new Game(Play.this, sudoku);			
-			Play.this.setContentView(game);
+			game = new GameView(PlayActivity.this, sudoku);			
+			PlayActivity.this.setContentView(game);
 		}else{
 			Toast.makeText(this, "No more game in this level.", Toast.LENGTH_SHORT).show();
 		}
@@ -113,10 +113,10 @@ public class Play extends Activity implements View.OnClickListener {
 
 	@Override
 	protected void onPause() {
-		if((Game.sudoku != null) &&(Game.sudoku.Model != null)){
-			SudokuModel model = Game.sudoku.Model;
+		if((GameView.sudoku != null) &&(GameView.sudoku.Model != null)){
+			SudokuModel model = GameView.sudoku.Model;
 			if(model.finish == 0) model.finish = 1;		
-			model.data = Game.sudoku.GetSudokuDatas();
+			model.data = GameView.sudoku.GetSudokuDatas();
 			Log.d("D","Save game:" + model);
 			SQLHelper sql = new SQLHelper(this);
 			sql.update(model);

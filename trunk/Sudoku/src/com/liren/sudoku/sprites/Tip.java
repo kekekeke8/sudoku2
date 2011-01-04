@@ -10,7 +10,7 @@ import android.graphics.RectF;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
-import com.liren.sudoku.Game;
+import com.liren.sudoku.GameView;
 import com.liren.sudoku.R;
 
 public class Tip extends AbstractSprite {
@@ -55,8 +55,8 @@ public class Tip extends AbstractSprite {
 
 	@Override
 	public void Draw(Canvas canvas) {
-		if(!Game.sudoku.Success){
-			if(Game.sudoku.Model.tipcount > 0){
+		if(!GameView.sudoku.Success){
+			if(GameView.sudoku.Model.tipcount > 0){
 				canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, 60, 60), this.GetRect(), paint);
 				nextFrame();
 			}else{
@@ -79,12 +79,12 @@ public class Tip extends AbstractSprite {
 		float y = event.getY();
 
 		if (GetRect().contains(x, y)) {
-			int value = Game.sudoku.getValue();
+			int value = GameView.sudoku.getValue();
 			if (value != 0) {
-				if (Game.sudoku.Model.tipcount > 0) {
-					if(Game.sudoku.getSelected() != null){
-						Game.sudoku.setValue(value);
-						Game.sudoku.Model.tipcount--;
+				if (GameView.sudoku.Model.tipcount > 0) {
+					if(GameView.sudoku.getSelected() != null){
+						GameView.sudoku.setValue(value);
+						GameView.sudoku.Model.tipcount--;
 					}
 				}
 			}
