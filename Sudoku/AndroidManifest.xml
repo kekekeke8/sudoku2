@@ -9,8 +9,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 		</activity>
-		<activity android:name="PlayActivity" android:screenOrientation="portrait" >
-		</activity>
+		<activity android:name="PlayActivity" android:screenOrientation="portrait" />
+		<activity android:name="HelpActivity" android:screenOrientation="portrait" />
 	</application>
 	<uses-sdk android:minSdkVersion="3" />
 </manifest> 
