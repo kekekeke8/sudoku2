@@ -5,6 +5,7 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 
 public abstract class AbstractSprite implements ISprite {
+	public int id = 0;
 	public int X = 0, Y = 0, Width = 0, Height = 0;
 
 	public ISprite setPosition(int x, int y) {
