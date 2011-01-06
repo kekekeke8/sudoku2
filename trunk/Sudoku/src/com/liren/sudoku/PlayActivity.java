@@ -1,57 +1,50 @@
 package com.liren.sudoku;
 
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
+import com.liren.game.FullScreenActivity;
+import com.liren.game.SpriteAction;
+import com.liren.game.Sprite;
 import com.liren.sudoku.model.SQLHelper;
 import com.liren.sudoku.model.SudokuModel;
 
-public class PlayActivity extends Activity implements View.OnClickListener {
-
+public class PlayActivity extends FullScreenActivity implements SpriteAction.OnSpriteClickListener {
+	private MenuView view = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.play);
-		findViewById(R.id.btnFlash).setOnClickListener(this);
-		findViewById(R.id.btnEasy).setOnClickListener(this);
-		findViewById(R.id.btnMedium).setOnClickListener(this);
-		findViewById(R.id.btnHard).setOnClickListener(this);
-		findViewById(R.id.btnExpert).setOnClickListener(this);
-		findViewById(R.id.btnResume).setOnClickListener(this);
+		view = new MenuView(this,MenuSprite.MENU_TYPE.PLAY); //1  = Play
+		view.setOnMenuItemClickListener(this);
+        setContentView(view);
 	}
 
-	private SudokuModel sudoku = null;
-	private GameView game = null;
-
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnFlash:
+	public void onSpriteClick(Sprite v) {
+		android.util.Log.d("D","click menu " + v.id + " in PlayActivity");
+		switch(v.id){
+		case 6: //flash
 			selectLevel = 1;
 			createNewGame();
 			break;
-		case R.id.btnEasy:
+		case 7: //easy
 			selectLevel = 2;
 			createNewGame();
 			break;
-		case R.id.btnMedium:
+		case 8: //medium
 			selectLevel = 3;
 			createNewGame();
 			break;
-		case R.id.btnHard:
+		case 9: //hard
 			selectLevel = 4;
-			createNewGame();
-			break;
-		case R.id.btnExpert:
+			createNewGame();break;
+		case 10: //expert
 			selectLevel = 5;
-			createNewGame();
-			break;
-		case R.id.btnResume:
+			createNewGame();break;
+		case 11: //resume
 			if(sudoku != null){
 				game = new GameView(this, sudoku);			
 				this.setContentView(game);
@@ -59,12 +52,12 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 				Toast.makeText(this, "No more game in resume.", Toast.LENGTH_SHORT).show();
 			}
 			break;
-		default:
-			break;
-		}
+		}				
 	}
 	
-	int selectLevel = 0;
+	private SudokuModel sudoku = null;
+	private GameView game = null;	
+	private int selectLevel = 0;
 	private void createNewGame(){
 		if(sudoku != null){
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -134,10 +127,12 @@ public class PlayActivity extends Activity implements View.OnClickListener {
 	protected void onResume() {
 		Log.d("D","onResume Load the game and start..........");
 		sudoku = LoadGame(-1); // Load resume game.
-		findViewById(R.id.btnResume).setVisibility(
-				sudoku == null ? View.INVISIBLE : View.VISIBLE);
+//		findViewById(R.id.btnResume).setVisibility(
+//				sudoku == null ? View.INVISIBLE : View.VISIBLE);
+		view.setResumeVisiable(sudoku != null);
 		super.onResume();
 	}
+
 	
 	
 }

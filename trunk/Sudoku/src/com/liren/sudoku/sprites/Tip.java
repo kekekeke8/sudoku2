@@ -53,7 +53,7 @@ public class Tip extends AbstractSprite {
 	public int curFrameIndex = 0;
 	public boolean LoopPlay = true;
 
-	@Override
+
 	public void Draw(Canvas canvas) {
 		if(!GameView.sudoku.Success){
 			if(GameView.sudoku.Model.tipcount > 0){
@@ -73,7 +73,6 @@ public class Tip extends AbstractSprite {
 			curFrameIndex = 0;
 	}
 
-	@Override
 	public void onTouchEvent(MotionEvent event) {
 		float x = event.getX();
 		float y = event.getY();
