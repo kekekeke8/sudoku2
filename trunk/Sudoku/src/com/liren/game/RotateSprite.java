@@ -26,7 +26,6 @@ public class RotateSprite extends AbstractSprite {
 	public int Quan = 1;
 	
 	
-	@Override
 	public void Draw(Canvas canvas) {
 		if (Play) {
 			degree += DegreeSpeed;
@@ -43,7 +42,6 @@ public class RotateSprite extends AbstractSprite {
 		}
 	}
 
-	@Override
 	public void onTouchEvent(MotionEvent event) {
 		if (GetRect().contains(event.getX(), event.getY())) {
 

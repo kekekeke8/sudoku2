@@ -38,9 +38,9 @@ public class Sprite extends AbstractSprite {
 	public int curFrameIndex = 0;
 	public boolean LoopPlay = true;
 
-	private ISpriteAction.OnClickListener onClickListener = null;
-	public void setOnClickListener(ISpriteAction.OnClickListener listener){
-		this.onClickListener = listener;
+	private SpriteAction.OnSpriteClickListener listener = null;
+	public void setOnClickListener(SpriteAction.OnSpriteClickListener listener){
+		this.listener = listener;
 	}
 	
 	public void onStop() {
@@ -50,10 +50,10 @@ public class Sprite extends AbstractSprite {
 	public void nextFrame() {
 		curFrameIndex++;
 		if (curFrameIndex >= images.length) {
-			if (LoopPlay) {
-				curFrameIndex = 0;
-			} else {
+			curFrameIndex = 0;
+			if (!LoopPlay){
 				onStop();
+				Play = false;
 			}
 		}
 	}
@@ -63,13 +63,15 @@ public class Sprite extends AbstractSprite {
 	public int FPS = 20;
 
 
-	@Override
 	public void Draw(Canvas canvas) {
 		if (Play) {
-			canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, Width, Height), this.GetRect(), paint);
-			if (System.currentTimeMillis() - tickCount > 1000 / FPS) {
-				tickCount = System.currentTimeMillis();
-				nextFrame();
+			if (curFrameIndex < images.length) {
+				canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, Width,
+						Height), this.GetRect(), paint);
+				if (System.currentTimeMillis() - tickCount > 1000 / FPS) {
+					tickCount = System.currentTimeMillis();
+					nextFrame();
+				}
 			}
 		} else {
 			canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, Width, Height),
@@ -77,11 +79,10 @@ public class Sprite extends AbstractSprite {
 		}
 	}
 
-	@Override
 	public void onTouchEvent(MotionEvent event) {
 		if (GetRect().contains(event.getX(),event.getY())) {
-			if(onClickListener != null)
-				onClickListener.onClick(this);
+			if(listener != null)
+				listener.onSpriteClick(this);
 		}
 	}
 
