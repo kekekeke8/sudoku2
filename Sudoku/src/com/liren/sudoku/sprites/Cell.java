@@ -54,8 +54,7 @@ public class Cell extends AbstractSprite {
 			context.getResources(), R.drawable.point_empty2);
 	private Bitmap select = BitmapFactory.decodeResource(
 			context.getResources(), R.drawable.select);
-	private Bitmap isame = BitmapFactory.decodeResource(context.getResources(),
-			R.drawable.issame);
+	//private Bitmap isame = BitmapFactory.decodeResource(context.getResources(),R.drawable.issame);
 
 	public boolean Play = false;
 	public float DegreeSpeed = 10f;
@@ -102,7 +101,7 @@ public class Cell extends AbstractSprite {
 			} else if (this.IsSame) {
 				RectF rect = new RectF(_rect.left - 3, _rect.top - 3,
 						_rect.right + 1, _rect.bottom + 1);
-				canvas.drawBitmap(isame, new Rect(0, 0, 60, 60), rect, paint);
+				canvas.drawBitmap(select, new Rect(0, 0, 60, 60), rect, paint);
 			}
 		}
 
