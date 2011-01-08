@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import com.liren.game.FullScreenActivity;
 import com.liren.game.Sprite;
 import com.liren.game.SpriteAction;
+import com.liren.sudoku.sprites.Status;
 
 public class StartActivity extends FullScreenActivity implements SpriteAction.OnSpriteClickListener {
 	private MenuView view = null;
@@ -30,7 +31,7 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
 			this.startActivity(intent);
 			break;
 		case 1: //status
-			intent = new Intent(this,ImageViewActivity.class);
+			intent = new Intent(this,Status.class);
 			intent.putExtra("image", R.drawable.back1);
 			this.startActivity(intent);
 			break;
@@ -53,6 +54,12 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
 			StartActivity.this.finish();
 			break;
 		}				
+	}
+
+	@Override
+	protected void onResume() {
+		view.Draw();
+		super.onResume();
 	}
 
 	@Override
