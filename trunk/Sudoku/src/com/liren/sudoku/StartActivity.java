@@ -4,6 +4,7 @@ package com.liren.sudoku;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import com.liren.game.FullScreenActivity;
 import com.liren.game.Sprite;
@@ -21,7 +22,6 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
         soundPlayer.playBackground();
     }
     
-    
     private Intent intent = null;
     public void onSpriteClick(Sprite v) {
 		switch(v.id){
@@ -29,37 +29,36 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
 			soundPlayer.playRight();
 			intent = new Intent(this,PlayActivity.class);
 			this.startActivity(intent);
+			this.finish();
 			break;
 		case 1: //status
 			intent = new Intent(this,Status.class);
 			intent.putExtra("image", R.drawable.back1);
 			this.startActivity(intent);
+			this.finish();
 			break;
 		case 2: //options
 			intent = new Intent(this,ImageViewActivity.class);
 			intent.putExtra("image", R.drawable.back1);
 			this.startActivity(intent);
+			this.finish();
 			break;
 		case 3: //help
 			intent = new Intent(this,ImageViewActivity.class);
 			intent.putExtra("image", R.drawable.back1);
 			this.startActivity(intent);
+			this.finish();
 			break;
 		case 4: //about
 			intent = new Intent(this,ImageViewActivity.class);
 			intent.putExtra("image", R.drawable.back1);
 			this.startActivity(intent);
+			this.finish();
 			break;
 		case 5: //exit
 			StartActivity.this.finish();
 			break;
 		}				
-	}
-
-	@Override
-	protected void onResume() {
-		view.Draw();
-		super.onResume();
 	}
 
 	@Override

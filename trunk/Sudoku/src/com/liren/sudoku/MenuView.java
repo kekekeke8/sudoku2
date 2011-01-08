@@ -46,7 +46,7 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 	}
 	ExplosionSprite s = null;
 	private MenuSprite menu = null;
-	private boolean mbLoop = false;
+	public boolean mbLoop = false;
 	private SurfaceHolder mSurfaceHolder = null;
 	public List<ISprite> Sprites = new ArrayList<ISprite>();
 	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.start_back);
@@ -70,7 +70,7 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 				o.Draw(canvas);
 			}
 			Path path = new Path();
-	        path.lineTo(0,500);//定义字符路径
+	        path.lineTo(0,500);
 
 			canvas.drawTextOnPath("Copyright (C) 2011 Liren", path, 290, -5, paint);
 			mSurfaceHolder.unlockCanvasAndPost(canvas);
@@ -100,7 +100,6 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 	}
 
 	public void surfaceChanged(SurfaceHolder arg0, int arg1, int arg2, int arg3) {
-		mbLoop = true;
 		
 	}
 
