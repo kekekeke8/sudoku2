@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
+import com.liren.sudoku.GameView;
 import com.liren.sudoku.R;
 import com.liren.sudoku.model.SudokuModel;
 
@@ -137,6 +138,9 @@ public class Sudoku extends AbstractSprite {
 					if (value != 0) {						
 						if (cells[i][j].nValue != cells[i][j].oValue) {
 							this.Model.error++;
+							GameView.soundPlayer.playError();
+						}else{
+							GameView.soundPlayer.playRight();
 						}
 					}
 					this.checkSuccess(i, j);
@@ -165,6 +169,7 @@ public class Sudoku extends AbstractSprite {
 					this.cells[i][j].Play = true;
 				}
 			}
+			GameView.soundPlayer.playLevelComplete();
 		}
 	}
 
@@ -204,6 +209,7 @@ public class Sudoku extends AbstractSprite {
 					this.cells[i][j].Play = true;
 				}
 			}
+			GameView.soundPlayer.playExplode();
 		}
 
 		// lie
@@ -217,6 +223,7 @@ public class Sudoku extends AbstractSprite {
 			for (int j = 0; j < 9; j++) {
 				this.cells[x][j].Play = true;
 			}
+			GameView.soundPlayer.playExplode();
 		}
 		
 		// hang
@@ -230,6 +237,7 @@ public class Sudoku extends AbstractSprite {
 			for (int i = 0; i < 9; i++) {
 				this.cells[i][y].Play = true;
 			}
+			GameView.soundPlayer.playExplode();
 		}
 	}
 

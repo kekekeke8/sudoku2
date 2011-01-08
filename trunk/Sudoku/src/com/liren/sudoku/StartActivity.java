@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.liren.game.FullScreenActivity;
-import com.liren.game.SpriteAction;
 import com.liren.game.Sprite;
+import com.liren.game.SpriteAction;
 
 public class StartActivity extends FullScreenActivity implements SpriteAction.OnSpriteClickListener {
 	private MenuView view = null;
@@ -17,12 +17,15 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
         view = new MenuView(this,MenuSprite.MENU_TYPE.START);
         view.setOnMenuItemClickListener(this);
         setContentView(view);
+        soundPlayer.playBackground();
     }
+    
     
     private Intent intent = null;
     public void onSpriteClick(Sprite v) {
 		switch(v.id){
 		case 0: //play
+			soundPlayer.playRight();
 			intent = new Intent(this,PlayActivity.class);
 			this.startActivity(intent);
 			break;

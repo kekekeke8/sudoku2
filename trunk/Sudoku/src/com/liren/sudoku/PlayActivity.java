@@ -8,8 +8,8 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.liren.game.FullScreenActivity;
-import com.liren.game.SpriteAction;
 import com.liren.game.Sprite;
+import com.liren.game.SpriteAction;
 import com.liren.sudoku.model.SQLHelper;
 import com.liren.sudoku.model.SudokuModel;
 
@@ -20,7 +20,7 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 		super.onCreate(savedInstanceState);
 		view = new MenuView(this,MenuSprite.MENU_TYPE.PLAY); //1  = Play
 		view.setOnMenuItemClickListener(this);
-        setContentView(view);
+        setContentView(view); 
 	}
 
 	public void onSpriteClick(Sprite v) {
@@ -46,7 +46,7 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 			createNewGame();break;
 		case 11: //resume
 			if(sudoku != null){
-				game = new GameView(this, sudoku);			
+				game = new GameView(this,this.soundPlayer, sudoku);			
 				this.setContentView(game);
 			}else{
 				Toast.makeText(this, "No more game in resume.", Toast.LENGTH_SHORT).show();
@@ -82,7 +82,7 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 	private void LoadNewGame() {
 		sudoku = LoadGame(selectLevel);
 		if(sudoku != null){
-			game = new GameView(PlayActivity.this, sudoku);			
+			game = new GameView(PlayActivity.this,this.soundPlayer, sudoku);			
 			PlayActivity.this.setContentView(game);
 		}else{
 			Toast.makeText(this, "No more game in this level.", Toast.LENGTH_SHORT).show();
@@ -125,6 +125,7 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 
 	@Override
 	protected void onResume() {
+		soundPlayer.playBackground();
 		Log.d("D","onResume Load the game and start..........");
 		sudoku = LoadGame(-1); // Load resume game.
 //		findViewById(R.id.btnResume).setVisibility(
