@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
+import com.liren.sudoku.GameView;
 import com.liren.sudoku.R;
 
 public class Cell extends AbstractSprite {
@@ -205,8 +206,10 @@ public class Cell extends AbstractSprite {
 	public void SetSelected(boolean value) {
 		if (this._selected != value) {
 			this._selected = value;
-			if (value)
+			if (value){
 				this.parent.onCellSelected(this);
+				GameView.soundPlayer.playSelect();
+			}
 		}
 	}
 

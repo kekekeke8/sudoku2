@@ -33,10 +33,12 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 
 	public static Sudoku sudoku = null;
 	public static KeyBoard keyboard = null;
+	public static SoundPlayer soundPlayer = null;
 	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);
-	public GameView(Context context,SudokuModel sudokumodel) {
-		super(context);
+	public GameView(Context context,SoundPlayer soundPlayer,SudokuModel sudokumodel) {
+		super(context);		
 		Log.d("D",sudokumodel.data);
+		GameView.soundPlayer = soundPlayer;
 		mSurfaceHolder = this.getHolder();
 		mSurfaceHolder.addCallback(this);
 		setFocusable(true);
