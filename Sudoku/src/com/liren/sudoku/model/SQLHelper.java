@@ -8,7 +8,7 @@ import android.util.Log;
 
 public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 	private final static String DATABASE_NAME = "sudoku";
-	private final static int DATABASE_VERSION = 2;
+	private final static int DATABASE_VERSION = 3;
 	private final static String TABLE_NAME = "sudoku";
 	private final static String FIELD_ID = "ID";
 	private final static String FIELD_LEVEL = "Level";
@@ -18,6 +18,7 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 	private final static String FIELD_ERROR = "Error";
 	private final static String FIELD_FINISH = "Finish";
 	private final static String FIELD_LASTDATE = "LastDate";
+	
 	private final static String[] fields = { FIELD_ID, FIELD_LEVEL, FIELD_DATA,
 			FIELD_TIMECOST, FIELD_TIPCOUNT, FIELD_ERROR, FIELD_FINISH };
 	private final static String[] datas = { 
@@ -110,7 +111,9 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 		String[] fields = { FIELD_ID, FIELD_LEVEL, FIELD_DATA, FIELD_TIMECOST,
 				FIELD_TIPCOUNT, FIELD_ERROR, FIELD_FINISH };
-		Cursor cursor = db.query(TABLE_NAME, fields, null, null, null, null,
+		String where = FIELD_FINISH + "= ?";
+		String[] wherevalue = {"2" };
+		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null, null,
 				FIELD_ID);
 		return cursor;
 	}
