@@ -26,7 +26,7 @@ public class ErrorShower extends AbstractSprite {
 	RectF rect = new RectF(16, 407, 70, 425);
 
 	public void Draw(Canvas canvas) {
-		error = GameView.sudoku.Model.error;
+		error = GameView.sudoku.Model.getError();
 
 		if (error < 1)
 			paint.setColor(Color.WHITE);

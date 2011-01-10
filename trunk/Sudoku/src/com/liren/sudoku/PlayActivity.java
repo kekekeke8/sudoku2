@@ -122,9 +122,9 @@ public class PlayActivity extends FullScreenActivity implements
 	protected void onPause() {
 		if ((GameView.sudoku != null) && (GameView.sudoku.Model != null)) {
 			SudokuModel model = GameView.sudoku.Model;
-			if (model.finish == 0)
-				model.finish = 1;
-			model.data = GameView.sudoku.GetSudokuDatas();
+			if (model.getFinish() == 0)
+				model.setFinish(1);
+			model.setData(GameView.sudoku.GetSudokuDatas());
 			Log.d("D", "Save game:" + model);
 			SQLHelper sql = new SQLHelper(this);
 			sql.update(model);
