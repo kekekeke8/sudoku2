@@ -56,7 +56,7 @@ public class Tip extends AbstractSprite {
 
 	public void Draw(Canvas canvas) {
 		if(!GameView.sudoku.Success){
-			if(GameView.sudoku.Model.tipcount > 0){
+			if(GameView.sudoku.Model.getTipcount() > 0){
 				canvas.drawBitmap(images[curFrameIndex], new Rect(0, 0, 60, 60), this.GetRect(), paint);
 				nextFrame();
 			}else{
@@ -80,10 +80,10 @@ public class Tip extends AbstractSprite {
 		if (GetRect().contains(x, y)) {
 			int value = GameView.sudoku.getValue();
 			if (value != 0) {
-				if (GameView.sudoku.Model.tipcount > 0) {
+				if (GameView.sudoku.Model.getTipcount() > 0) {
 					if(GameView.sudoku.getSelected() != null){
 						GameView.sudoku.setValue(value);
-						GameView.sudoku.Model.tipcount--;
+						GameView.sudoku.Model.setTipcount(GameView.sudoku.Model.getTipcount() - 1);
 					}
 				}
 			}

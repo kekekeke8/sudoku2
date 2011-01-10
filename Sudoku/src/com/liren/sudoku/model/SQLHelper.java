@@ -141,13 +141,13 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 	private SudokuModel ParseSudokuModel(Cursor cursor) {
 		while (cursor.moveToFirst()) {
 			com.liren.sudoku.model.SudokuModel model = new com.liren.sudoku.model.SudokuModel();
-			model.id = cursor.getInt(0);
-			model.level = cursor.getInt(1);
-			model.data = cursor.getString(2);
-			model.timecost = cursor.getInt(3);
-			model.tipcount = cursor.getInt(4);
-			model.error = cursor.getInt(5);
-			model.finish = cursor.getInt(6);
+			model.setId(cursor.getInt(0));
+			model.setLevel(cursor.getInt(1));
+			model.setData(cursor.getString(2));
+			model.setTimecost(cursor.getInt(3));
+			model.setTipcount(cursor.getInt(4));
+			model.setError(cursor.getInt(5));
+			model.setFinish(cursor.getInt(6));
 			return model;
 		}
 		return null;
@@ -188,8 +188,8 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 
 	public void update(SudokuModel sudoku) {
 		if (sudoku != null) {
-			update(sudoku.id, sudoku.timecost, sudoku.tipcount, sudoku.error,
-					sudoku.finish, sudoku.data);
+			update(sudoku.getId(), sudoku.getTimecost(), sudoku.getTipcount(), sudoku.getError(),
+					sudoku.getFinish(), sudoku.getData());
 		}
 	}
 

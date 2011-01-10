@@ -37,7 +37,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);
 	public GameView(Context context,SoundPlayer soundPlayer,SudokuModel sudokumodel) {
 		super(context);		
-		Log.d("D",sudokumodel.data);
+		Log.d("D",sudokumodel.getData());
 		GameView.soundPlayer = soundPlayer;
 		mSurfaceHolder = this.getHolder();
 		mSurfaceHolder.addCallback(this);

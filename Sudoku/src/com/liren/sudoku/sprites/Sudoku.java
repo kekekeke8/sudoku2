@@ -35,7 +35,7 @@ public class Sudoku extends AbstractSprite {
 
 	private void InitSudoku(int x, int y, int width, int height, Context context) {
 
-		String[] ss = Model.data.split(",");
+		String[] ss = Model.getData().split(",");
 		int count = 0;
 		for (int j = 0; j < 9; j++) {
 			for (int i = 0; i < 9; i++) {
@@ -48,7 +48,7 @@ public class Sudoku extends AbstractSprite {
 					cell.nValue = 0;
 				cell.IDx = i;
 				cell.IDy = j;
-				cell.ShowError = Model.showError;
+				cell.ShowError = Model.isShowError();
 				cell.SetSelected(false);
 				cell.parent = this;
 				cell.mFace = this.mFace;
@@ -137,7 +137,7 @@ public class Sudoku extends AbstractSprite {
 					cells[i][j].SetValue(value);
 					if (value != 0) {						
 						if (cells[i][j].nValue != cells[i][j].oValue) {
-							this.Model.error++;
+							this.Model.setError(this.Model.getError()+1);
 							GameView.soundPlayer.playError();
 						}else{
 							GameView.soundPlayer.playRight();
@@ -184,7 +184,7 @@ public class Sudoku extends AbstractSprite {
 		if (success) {
 			Success = true;
 			doComplete();
-			this.Model.finish = 2;
+			this.Model.setFinish(2);
 		} else {
 			this.checkComplete(x, y);
 		}

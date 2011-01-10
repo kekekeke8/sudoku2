@@ -1,5 +1,6 @@
-#Tue Jan 04 14:51:04 CST 2011
+#Mon Jan 10 17:23:52 CST 2011
 eclipse.preferences.version=1
 encoding//src/com/liren/sudoku/PlayActivity.java=UTF-8
+encoding//src/com/liren/sudoku/model/SudokuModel.java=UTF-8
 encoding//src/com/liren/sudoku/sprites/Cell.java=UTF-8
 encoding//src/com/liren/sudoku/sprites/Map.java=UTF-8
