@@ -2,7 +2,6 @@ package com.liren.sudoku.sprites;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -11,14 +10,12 @@ import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.GameView;
-import com.liren.sudoku.R;
+import com.liren.sudoku.Resource;
 
 public class Tip extends AbstractSprite {
 
-	public static Tip create(Context context) {
-		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.tip);
-		Tip tip = new Tip(context, 50, 50, bitmap);
+	public static Tip create(Context context) {		
+		Tip tip = new Tip(context, 50, 50, Resource.getInstance().rTip);
 		tip.X = 300;
 		tip.Y = 20;
 		return tip;

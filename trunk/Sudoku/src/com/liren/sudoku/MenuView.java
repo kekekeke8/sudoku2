@@ -49,7 +49,7 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 	public boolean mbLoop = false;
 	private SurfaceHolder mSurfaceHolder = null;
 	public List<ISprite> Sprites = new ArrayList<ISprite>();
-	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.start_back);
+	
 
 	private SpriteAction.OnSpriteClickListener listener = null;
 	public void setOnMenuItemClickListener(SpriteAction.OnSpriteClickListener listener){
@@ -65,7 +65,7 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 			}
 
 			Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
-			canvas.drawBitmap(background, new Rect(0, 0, 320, 480), new Rect(0, 0, 320, 480), paint );
+			canvas.drawBitmap(Resource.getInstance().rStartBackground, new Rect(0, 0, 320, 480), new Rect(0, 0, 320, 480), paint );
 			for (ISprite o : Sprites) {
 				o.Draw(canvas);
 			}

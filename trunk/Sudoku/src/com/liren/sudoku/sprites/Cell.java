@@ -1,8 +1,6 @@
 package com.liren.sudoku.sprites;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
@@ -14,7 +12,7 @@ import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.GameView;
-import com.liren.sudoku.R;
+import com.liren.sudoku.Resource;
 
 public class Cell extends AbstractSprite {
 
@@ -49,13 +47,6 @@ public class Cell extends AbstractSprite {
 
 	public RectF _rect = new RectF();
 
-	private Bitmap background = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.point1);
-	private Bitmap background_empty = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.point_empty2);
-	private Bitmap select = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.select);
-	//private Bitmap isame = BitmapFactory.decodeResource(context.getResources(),R.drawable.issame);
 
 	public boolean Play = false;
 	public float DegreeSpeed = 10f;
@@ -88,21 +79,21 @@ public class Cell extends AbstractSprite {
 
 		if (this.CellType == 1) {
 			// canvas.drawBitmap(background, rs, _rect, paint);
-			canvas.drawBitmap(background, matrix, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Background, matrix, paint);
 		} else {
-			canvas.drawBitmap(background_empty, matrix, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Background_empty, matrix, paint);
 		}
 
 		if (!Play) {
 			if (this.GetSelected()) {
 				RectF rect = new RectF(_rect.left - 3, _rect.top - 3,
 						_rect.right + 1, _rect.bottom + 1);
-				canvas.drawBitmap(select, new Rect(0, 0, 60, 60), rect, paint);
+				canvas.drawBitmap(Resource.getInstance().rCell_Select, new Rect(0, 0, 60, 60), rect, paint);
 
 			} else if (this.IsSame) {
 				RectF rect = new RectF(_rect.left - 3, _rect.top - 3,
 						_rect.right + 1, _rect.bottom + 1);
-				canvas.drawBitmap(select, new Rect(0, 0, 60, 60), rect, paint);
+				canvas.drawBitmap(Resource.getInstance().rCell_Select, new Rect(0, 0, 60, 60), rect, paint);
 			}
 		}
 

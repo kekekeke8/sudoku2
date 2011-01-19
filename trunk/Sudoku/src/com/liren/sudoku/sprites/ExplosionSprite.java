@@ -15,8 +15,7 @@ public class ExplosionSprite extends Sprite {
 	}
 
 	public static ExplosionSprite create(Context context) {
-		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.explode);
+		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.explode);
 		ExplosionSprite tip = new ExplosionSprite(context, 64, 64, bitmap);		
 		tip.setPosition(200,200);
 		tip.FPS = 2;
