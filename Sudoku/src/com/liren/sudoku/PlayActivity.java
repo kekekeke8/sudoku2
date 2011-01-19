@@ -51,7 +51,7 @@ public class PlayActivity extends FullScreenActivity implements
 			break;
 		case 11: // resume
 			if (sudoku != null) {
-				game = new GameView(this, this.soundPlayer, sudoku);
+				game = new GameView(this, sudoku);
 				this.setContentView(game);
 			} else {
 				Toast.makeText(this, "No more game in resume.",
@@ -95,7 +95,7 @@ public class PlayActivity extends FullScreenActivity implements
 	private void LoadNewGame() {
 		sudoku = LoadGame(selectLevel);
 		if (sudoku != null) {
-			game = new GameView(PlayActivity.this, this.soundPlayer, sudoku);
+			game = new GameView(PlayActivity.this, sudoku);
 			PlayActivity.this.setContentView(game);
 		} else {
 			Toast.makeText(this, "No more game in this level.",

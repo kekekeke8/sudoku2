@@ -18,14 +18,12 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
         view = new MenuView(this,MenuSprite.MENU_TYPE.START);
         view.setOnMenuItemClickListener(this);
         setContentView(view);
-        soundPlayer.playBackground();
     }
     
     private Intent intent = null;
     public void onSpriteClick(Sprite v) {
 		switch(v.id){
 		case 0: //play
-			soundPlayer.playRight();
 			intent = new Intent(this,PlayActivity.class);
 			this.startActivity(intent);
 			this.finish();
