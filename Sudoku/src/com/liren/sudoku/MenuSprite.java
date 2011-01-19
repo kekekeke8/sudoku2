@@ -50,37 +50,23 @@ public class MenuSprite extends AbstractSprite implements SpriteAction.OnSpriteC
 		}
 	}
 	
-	private void createStartMenu(Context context) {
-		Bitmap bmpPlay = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_play);
-		Bitmap bmpStatus = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_status);
-		Bitmap bmpOptions = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_options);
-		Bitmap bmpHelp = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_help);
-		Bitmap bmpAbout = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_about);
-		Bitmap bmpExit = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_exit);
-		
-		Sprites.add(createMenuItem(context, bmpPlay, 180, 160, MENU_ITEM.PLAY));
-		Sprites.add(createMenuItem(context, bmpStatus, 180, 200, MENU_ITEM.STATUS));
-		Sprites.add(createMenuItem(context, bmpOptions, 180, 240, MENU_ITEM.OPTIONS));
-		Sprites.add(createMenuItem(context, bmpHelp, 180, 280, MENU_ITEM.HELP));
-		Sprites.add(createMenuItem(context, bmpAbout, 180, 320, MENU_ITEM.ABOUT));
-		Sprites.add(createMenuItem(context, bmpExit, 180, 360, MENU_ITEM.EXIT));
+	private void createStartMenu(Context context) {		
+		Sprites.add(createMenuItem(context,Resource.getInstance().rPlay, 180, 160, MENU_ITEM.PLAY));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rStatus, 180, 200, MENU_ITEM.STATUS));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rOptions, 180, 240, MENU_ITEM.OPTIONS));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rHelp, 180, 280, MENU_ITEM.HELP));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rAbout, 180, 320, MENU_ITEM.ABOUT));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rExit, 180, 360, MENU_ITEM.EXIT));
 	}
 	
 	ISprite resumeSprite = null;
 	private void createPlayMenu(Context context) {
-		Bitmap bmpFlash = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_flash);
-		Bitmap bmpEasy = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_easy);
-		Bitmap bmpMedium = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_medium);
-		Bitmap bmpHard = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_hard);
-		Bitmap bmpExpert = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_expert);
-		Bitmap bmpResume = BitmapFactory.decodeResource(context.getResources(), R.drawable.menu_resume);
-		
-		Sprites.add(createMenuItem(context, bmpFlash, 180, 160, MENU_ITEM.FLASH));
-		Sprites.add(createMenuItem(context, bmpEasy, 180, 200, MENU_ITEM.EASY));
-		Sprites.add(createMenuItem(context, bmpMedium, 180, 240, MENU_ITEM.MEDIUM));
-		Sprites.add(createMenuItem(context, bmpHard, 180, 280, MENU_ITEM.HARD));
-		Sprites.add(createMenuItem(context, bmpExpert, 180, 320, MENU_ITEM.EXPERT));		
-		resumeSprite = createMenuItem(context, bmpResume, 180, 360, MENU_ITEM.RESUME);
+		Sprites.add(createMenuItem(context, Resource.getInstance().rFlash, 180, 160, MENU_ITEM.FLASH));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rEasy, 180, 200, MENU_ITEM.EASY));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rMedium, 180, 240, MENU_ITEM.MEDIUM));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rHard, 180, 280, MENU_ITEM.HARD));
+		Sprites.add(createMenuItem(context, Resource.getInstance().rExpert, 180, 320, MENU_ITEM.EXPERT));		
+		resumeSprite = createMenuItem(context, Resource.getInstance().rResume, 180, 360, MENU_ITEM.RESUME);
 	}
 
 	private Sprite createMenuItem(Context context, Bitmap bmp, int x, int y,MENU_ITEM id) {

@@ -1,8 +1,6 @@
 package com.liren.sudoku.sprites;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Rect;
@@ -11,7 +9,7 @@ import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.GameView;
-import com.liren.sudoku.R;
+import com.liren.sudoku.Resource;
 
 public class Key extends AbstractSprite {
 
@@ -31,13 +29,7 @@ public class Key extends AbstractSprite {
 	public boolean IsPencial = false;;
 
 	public RectF Rect = new RectF();
-	private Bitmap background = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.point1);
-	private Bitmap background_empty = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.point_empty2);
-
-	private Bitmap xiangpi = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.xp);
+	
 	
 	public void Draw(Canvas canvas) {
 		int x = X + 30 * (IDx);
@@ -51,18 +43,18 @@ public class Key extends AbstractSprite {
 
 		if (this.IsPen) 
 		{
-			canvas.drawBitmap(background, rs, Rect, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Background, rs, Rect, paint);
 		} 
 		else if (this.IsPencial) 
 		{
-			canvas.drawBitmap(background_empty, rs, Rect, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Background_empty, rs, Rect, paint);
 		}
 		if(this.Value != 0){
 			paint.setColor(Color.argb(255, 94, 48, 16));
 			paint.setTextSize(22);
 			canvas.drawText(Integer.toString(Value), x + 9, y + 23, paint);
 		}else{
-			canvas.drawBitmap(xiangpi, x + 1, y + 1, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Select, x + 1, y + 1, paint);
 		}
 	}
 

@@ -1,8 +1,6 @@
 package com.liren.sudoku.sprites;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.RectF;
 import android.graphics.Typeface;
@@ -11,7 +9,7 @@ import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.GameView;
-import com.liren.sudoku.R;
+import com.liren.sudoku.Resource;
 import com.liren.sudoku.model.SudokuModel;
 
 public class Sudoku extends AbstractSprite {
@@ -30,7 +28,7 @@ public class Sudoku extends AbstractSprite {
 	}
 
 	private Typeface mFace = null;
-	private Bitmap sucess = BitmapFactory.decodeResource(context.getResources(), R.drawable.sucess);
+	
 	public SudokuModel Model = null;
 
 	private void InitSudoku(int x, int y, int width, int height, Context context) {
@@ -83,7 +81,7 @@ public class Sudoku extends AbstractSprite {
 		}
 
 		if (this.Success) {	
-			canvas.drawBitmap(sucess, 60, 120, paint);
+			canvas.drawBitmap(Resource.getInstance().rSucess, 60, 120, paint);
 		}
 	}
 

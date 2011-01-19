@@ -9,13 +9,14 @@ import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.R;
+import com.liren.sudoku.Resource;
 
 public class BackButton extends AbstractSprite {
-	private Bitmap bitmap = BitmapFactory.decodeResource(
-			context.getResources(), R.drawable.back);
+	private Bitmap bitmap = null;
 
 	public BackButton(Context context) {
 		super(context, 10, 10, 40, 15);
+		bitmap = Resource.getInstance().rBackButton;
 		paint.setAntiAlias(true);
 	}
 

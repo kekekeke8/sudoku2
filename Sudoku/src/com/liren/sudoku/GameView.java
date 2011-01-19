@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -34,7 +32,7 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 	public static Sudoku sudoku = null;
 	public static KeyBoard keyboard = null;
 	public static SoundPlayer soundPlayer = null;
-	private Bitmap background = BitmapFactory.decodeResource(this.getResources(), R.drawable.back1);
+	
 	public GameView(Context context,SoundPlayer soundPlayer,SudokuModel sudokumodel) {
 		super(context);		
 		Log.d("D",sudokumodel.getData());
@@ -87,9 +85,8 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 			canvas = mSurfaceHolder.lockCanvas();
 			if (mSurfaceHolder == null || canvas == null) {
 				return;
-			}
-			
-			canvas.drawBitmap(background, new Rect(0,0,320,480), new Rect(0,0,320,480), new Paint());
+			}			
+			canvas.drawBitmap(Resource.getInstance().rBackground1, new Rect(0,0,320,480), new Rect(0,0,320,480), new Paint());
 			for (ISprite o : Sprites) {
 				o.Draw(canvas);
 			}
