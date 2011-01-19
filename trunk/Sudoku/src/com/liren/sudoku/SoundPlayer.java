@@ -9,8 +9,17 @@ import android.media.SoundPool;
 import com.liren.sudoku.R;
 
 public class SoundPlayer {
+	private static SoundPlayer _soundPlayer;
+	public static SoundPlayer getInstance(Context context){
+		if(_soundPlayer == null)
+			_soundPlayer = new SoundPlayer(context);
+		return _soundPlayer;
+	}
+	public static SoundPlayer getInstance(){
+		return _soundPlayer;
+	}
 	private Context context = null;
-	public SoundPlayer(Context context) {
+	private SoundPlayer(Context context) {
 		this.context = context;
 		this.initSounds();
 	}

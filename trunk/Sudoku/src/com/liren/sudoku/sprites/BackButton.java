@@ -2,18 +2,15 @@ package com.liren.sudoku.sprites;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
-import com.liren.sudoku.R;
 import com.liren.sudoku.Resource;
 
 public class BackButton extends AbstractSprite {
 	private Bitmap bitmap = null;
-
 	public BackButton(Context context) {
 		super(context, 10, 10, 40, 15);
 		bitmap = Resource.getInstance().rBackButton;
