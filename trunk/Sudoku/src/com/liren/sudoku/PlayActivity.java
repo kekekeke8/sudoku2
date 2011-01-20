@@ -14,8 +14,7 @@ import com.liren.game.SpriteAction;
 import com.liren.sudoku.model.SQLHelper;
 import com.liren.sudoku.model.SudokuModel;
 
-public class PlayActivity extends FullScreenActivity implements
-		SpriteAction.OnSpriteClickListener {
+public class PlayActivity extends FullScreenActivity implements SpriteAction.OnSpriteClickListener {
 	private MenuView view = null;
 
 	@Override
@@ -54,8 +53,7 @@ public class PlayActivity extends FullScreenActivity implements
 				game = new GameView(this, sudoku);
 				this.setContentView(game);
 			} else {
-				Toast.makeText(this, "No more game in resume.",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, "No more game in resume.", Toast.LENGTH_SHORT).show();
 			}
 			break;
 		}
@@ -68,24 +66,20 @@ public class PlayActivity extends FullScreenActivity implements
 	private void createNewGame() {
 		if (sudoku != null) {
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
-			builder.setMessage(this.getResources().getString(
-					R.string.confirm_abandon));
+			builder.setMessage(this.getResources().getString(R.string.confirm_abandon));
 			builder.setTitle(this.getResources().getString(R.string.confirm));
-			builder.setNegativeButton(
-					this.getResources().getString(R.string.yes),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-							SQLHelper sql = new SQLHelper(PlayActivity.this);
-							sql.abandonGame();
-							LoadNewGame();
-						}
-					});
-			builder.setPositiveButton(this.getResources()
-					.getString(R.string.no),
-					new DialogInterface.OnClickListener() {
-						public void onClick(DialogInterface dialog, int which) {
-						}
-					});
+			builder.setNegativeButton(this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+					SQLHelper sql = new SQLHelper(PlayActivity.this);
+					sql.abandonGame();
+					LoadNewGame();
+					sql.close();
+				}
+			});
+			builder.setPositiveButton(this.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int which) {
+				}
+			});
 			builder.show();
 		} else {
 			LoadNewGame();
@@ -98,8 +92,7 @@ public class PlayActivity extends FullScreenActivity implements
 			game = new GameView(PlayActivity.this, sudoku);
 			PlayActivity.this.setContentView(game);
 		} else {
-			Toast.makeText(this, "No more game in this level.",
-					Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "No more game in this level.", Toast.LENGTH_SHORT).show();
 		}
 	}
 
@@ -114,20 +107,30 @@ public class PlayActivity extends FullScreenActivity implements
 			Log.d("E", ex.getMessage());
 			return null;
 		} finally {
-			sql.close();
+			try {
+				sql.close();
+			} catch (Exception e) {
+			}
 		}
 	}
 
 	@Override
 	protected void onPause() {
 		if ((GameView.sudoku != null) && (GameView.sudoku.Model != null)) {
-			SudokuModel model = GameView.sudoku.Model;
-			if (model.getFinish() == 0)
-				model.setFinish(1);
-			model.setData(GameView.sudoku.GetSudokuDatas());
-			Log.d("D", "Save game:" + model);
 			SQLHelper sql = new SQLHelper(this);
-			sql.update(model);
+			try {
+				SudokuModel model = GameView.sudoku.Model;
+				if (model.getFinish() == 0)
+					model.setFinish(1);
+				model.setData(GameView.sudoku.GetSudokuDatas());
+				Log.d("D", "Save game:" + model);
+				sql.update(model);
+			} finally {
+				try {
+					sql.close();
+				} catch (Exception e) {
+				}
+			}
 		}
 		super.onPause();
 	}
@@ -149,12 +152,15 @@ public class PlayActivity extends FullScreenActivity implements
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Intent intent = new Intent(this,StartActivity.class);
-			this.startActivity(intent);
-			this.finish();
+			exit();
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
+	public void exit() {
+		Intent intent = new Intent(this, StartActivity.class);
+		this.startActivity(intent);
+		this.finish();
+	}
 }

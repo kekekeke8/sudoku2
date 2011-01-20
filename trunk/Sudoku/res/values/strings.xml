@@ -18,7 +18,15 @@
 	<string name="copyright">Copyright(C) 2010 Liren</string>
     <string name="error">Error</string>
     <string name="confirm_abandon">Are you sure you want to abandon the saved game?</string>
+    <string name="confirm_exit">Are you sure you want to quit the game?</string>
     <string name="confirm">Confirm</string>
     <string name="yes">Yes</string>
     <string name="no">No</string> 
+    
+    <string name="game_description">Sudoku is a logic-based, combinatorial number-placement puzzle. \nThe objective is to fill a 9×9 grid with digits so that each column, each row, and each of the nine 3×3 sub-grids that compose the grid (also called "boxes", "blocks", "regions", or "sub-squares") contains all of the digits from 1 to 9.\n\nCopyright(C) Liren 2011.\nEmail:lirenzhao@gmail.com </string>
+    <string name="game_about">Sudoku for Android\n\n
+Version:1\n
+Build id: 20110102-0105\n
+(C) Copyright Liren 2011.  All rights reserved.\n\n
+This product includes software developed by lirenzhao@gmail.com</string>
 </resources>

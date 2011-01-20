@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -15,9 +13,8 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import com.liren.game.ISprite;
-import com.liren.game.SpriteAction;
 import com.liren.game.Sprite;
-import com.liren.sudoku.sprites.ExplosionSprite;
+import com.liren.game.SpriteAction;
 import com.liren.sudoku.sprites.Title;
 
 public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Runnable {
@@ -36,15 +33,7 @@ public class MenuView extends SurfaceView implements SurfaceHolder.Callback, Run
 			}
 		});
 		Sprites.add(menu);	
-		s = ExplosionSprite.create(context);
-		s.setOnSpriteStopListner(new SpriteAction.OnSpriteStopListener() {			
-			public void onSpriteStop(Sprite v) {
-				Sprites.remove(s);
-			}
-		});
-		Sprites.add(s);
 	}
-	ExplosionSprite s = null;
 	private MenuSprite menu = null;
 	public boolean mbLoop = false;
 	private SurfaceHolder mSurfaceHolder = null;
