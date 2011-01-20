@@ -54,7 +54,7 @@ public class Key extends AbstractSprite {
 			paint.setTextSize(22);
 			canvas.drawText(Integer.toString(Value), x + 9, y + 23, paint);
 		}else{
-			canvas.drawBitmap(Resource.getInstance().rCell_Select, x + 1, y + 1, paint);
+			canvas.drawBitmap(Resource.getInstance().rCell_Clean, x + 1, y + 1, paint);
 		}
 	}
 

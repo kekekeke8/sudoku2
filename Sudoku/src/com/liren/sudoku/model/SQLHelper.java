@@ -107,27 +107,27 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	public Cursor select() {
-		SQLiteDatabase db = this.getReadableDatabase();
-		String[] fields = { FIELD_ID, FIELD_LEVEL, FIELD_DATA, FIELD_TIMECOST,
-				FIELD_TIPCOUNT, FIELD_ERROR, FIELD_FINISH };
-		String where = FIELD_FINISH + "= ?";
-		String[] wherevalue = {"2" };
-		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null, null,
-				FIELD_ID);
-		return cursor;
-	}
+//	private Cursor select() {
+//		SQLiteDatabase db = this.getReadableDatabase();
+//		String[] fields = { FIELD_ID, FIELD_LEVEL, FIELD_DATA, FIELD_TIMECOST,
+//				FIELD_TIPCOUNT, FIELD_ERROR, FIELD_FINISH };
+//		String where = FIELD_FINISH + "= ?";
+//		String[] wherevalue = {"2" };
+//		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null, null,
+//				FIELD_ID);
+//		return cursor;
+//	}
 
 	// Query new sudoku in this level
 	// new game in this level
-	public Cursor select(int level) {
-		SQLiteDatabase db = this.getReadableDatabase();
-		String where = FIELD_LEVEL + "= ?" + " AND " + FIELD_FINISH + "= ?";
-		String[] wherevalue = { Integer.toString(level), "0" };
-		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null,
-				null, FIELD_ID);
-		return cursor;
-	}
+//	private Cursor select(int level) {
+//		SQLiteDatabase db = this.getReadableDatabase();
+//		String where = FIELD_LEVEL + "= ?" + " AND " + FIELD_FINISH + "= ?";
+//		String[] wherevalue = { Integer.toString(level), "0" };
+//		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null,
+//				null, FIELD_ID);
+//		return cursor;
+//	}
 
 	public SudokuModel loadGame(int level) {
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -135,7 +135,10 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		String[] wherevalue = { Integer.toString(level), "0" };
 		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null,
 				null, FIELD_ID);
-		return ParseSudokuModel(cursor);
+		SudokuModel model = ParseSudokuModel(cursor);
+		cursor.close();
+		db.close();
+		return model;
 	}
 
 	private SudokuModel ParseSudokuModel(Cursor cursor) {
@@ -161,7 +164,10 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		String[] wherevalue = { "1" };
 		Cursor cursor = db.query(TABLE_NAME, fields, where, wherevalue, null,
 				null, FIELD_ID);
-		return ParseSudokuModel(cursor);
+		SudokuModel model = ParseSudokuModel(cursor);
+		cursor.close();
+		db.close();
+		return model;
 	}
 
 	public long insert(String data, int level, int tip) {
@@ -176,6 +182,7 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		cv.put(FIELD_LASTDATE, 0);
 		long row = db.insert(TABLE_NAME, null, cv);
 		Log.d("D", "insert data finished. ret=" + row);
+		db.close();
 		return row;
 	}
 
@@ -184,6 +191,7 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		String where = FIELD_ID + "= ?";
 		String[] wherevalue = { Integer.toString(id) };
 		db.delete(TABLE_NAME, where, wherevalue);
+		db.close();
 	}
 
 	public void update(SudokuModel sudoku) {
@@ -200,6 +208,7 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		ContentValues cv = new ContentValues();
 		cv.put(FIELD_FINISH, 0);
 		db.update(TABLE_NAME, cv, where, wherevalue);
+		db.close();
 	}
 	
 	public void update(int id, Long timecost, int tipcount, int error,
@@ -214,5 +223,6 @@ public class SQLHelper extends android.database.sqlite.SQLiteOpenHelper {
 		cv.put(FIELD_FINISH, finish);
 		cv.put(FIELD_DATA, data);
 		db.update(TABLE_NAME, cv, where, wherevalue);
+		db.close();
 	}
 }

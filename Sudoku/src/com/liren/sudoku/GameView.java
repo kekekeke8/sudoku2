@@ -12,9 +12,11 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.View;
 
 import com.liren.game.ISprite;
 import com.liren.sudoku.model.SudokuModel;
+import com.liren.sudoku.sprites.BackButton;
 import com.liren.sudoku.sprites.CostTime;
 import com.liren.sudoku.sprites.ErrorShower;
 import com.liren.sudoku.sprites.KeyBoard;
@@ -32,11 +34,13 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 	public static Sudoku sudoku = null;
 	public static KeyBoard keyboard = null;
 	public static SoundPlayer soundPlayer = null;
-	
+	private BackButton backButton = null;
+	private Context context = null;
 	public GameView(Context context,SudokuModel sudokumodel) {
-		super(context);		
+		super(context);	
+		this.context = context;
 		Log.d("D",sudokumodel.getData());
-		GameView.soundPlayer = SoundPlayer.getInstance(context);
+		GameView.soundPlayer = SoundPlayer.getInstance();
 		mSurfaceHolder = this.getHolder();
 		mSurfaceHolder.addCallback(this);
 		setFocusable(true);
@@ -50,10 +54,29 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 		Sprites.add(new Status(context));
 		Sprites.add(new CostTime(context));		
 		Sprites.add(new ErrorShower(context));
+		backButton = new BackButton(context);
+		backButton.SetOnClickListener(new View.OnClickListener() {			
+			@Override
+			public void onClick(View v) {
+				GameView.this.exit();
+			}
+		});		
+		Sprites.add(backButton);
 		Tip tip = Tip.create(context);
 		Sprites.add(tip);
 	}
 
+//	private View.OnClickListener onExitListener = null;
+//	public void setOnClickListener(View.OnClickListener listener){
+//		onExitListener = listener;
+//	}
+	public void exit(){
+		mbLoop = false;
+		
+//		if(onExitListener != null) onExitListener.onClick(null);
+		((PlayActivity)context).exit();
+	}
+	
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
 			int height) {
 		
@@ -71,10 +94,10 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback,
 		while (mbLoop) {
 			try {
 				Thread.sleep(30);
+				synchronized (mSurfaceHolder) {
+					Draw();
+				}
 			} catch (Exception e) {
-			}
-			synchronized (mSurfaceHolder) {
-				Draw();
 			}
 		}
 	}

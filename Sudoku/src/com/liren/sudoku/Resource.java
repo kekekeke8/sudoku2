@@ -8,6 +8,7 @@ import com.liren.game.ResourceLoad;
 
 public class Resource {
 	private ResourceLoad.LoadEventListener _processListenter = null;
+
 	public void setOnProcessListener(ResourceLoad.LoadEventListener listener) {
 		_processListenter = listener;
 	}
@@ -16,9 +17,8 @@ public class Resource {
 
 	public static Resource getInstance() {
 		if (resource == null)
-			return new Resource();
-		else
-			return resource;
+			resource = new Resource();
+		return resource;
 	}
 
 	public Bitmap rBackground1 = null;
@@ -46,15 +46,14 @@ public class Resource {
 	public Bitmap rSucess = null;
 	public Bitmap rTip = null;
 	public Bitmap rTitle = null;
-	
-	private void process(int value){
-		System.out.println("Load Resource Process:" + value);
-		if(this._processListenter != null) 
+
+	private void process(int value) {
+		if (this._processListenter != null)
 			_processListenter.Process(value);
 	}
-	
+
 	public void Load(Context context) {
-		process(0);		
+		process(0);
 		rBackground1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.back1);
 		rBackButton = BitmapFactory.decodeResource(context.getResources(), R.drawable.back);
 		rStartBackground = BitmapFactory.decodeResource(context.getResources(), R.drawable.start_back);

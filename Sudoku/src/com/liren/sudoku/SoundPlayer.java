@@ -32,7 +32,6 @@ public class SoundPlayer {
 		_soundPoolMap.put(R.raw.select, _soundPool.load(context, R.raw.select, 1));
 		_soundPoolMap.put(R.raw.error, _soundPool.load(context, R.raw.error, 1));
 		_soundPoolMap.put(R.raw.explodes,_soundPool.load(context, R.raw.explodes, 1));
-		_soundPoolMap.put(R.raw.background,_soundPool.load(context, R.raw.background, 1));
 		_soundPoolMap.put(R.raw.level_complete,_soundPool.load(context, R.raw.level_complete, 1));
 		_soundPoolMap.put(R.raw.right,_soundPool.load(context, R.raw.right, 1));
 	}
@@ -63,10 +62,6 @@ public class SoundPlayer {
 	
 	public void playLevelComplete(){
 		playSound(R.raw.level_complete);
-	}
-	
-	public void playBackground(){
-		playSound(R.raw.background);
 	}
 }
 

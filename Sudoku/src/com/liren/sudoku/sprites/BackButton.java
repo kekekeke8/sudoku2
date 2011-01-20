@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+import android.view.View;
 
 import com.liren.game.AbstractSprite;
 import com.liren.sudoku.Resource;
@@ -17,9 +18,15 @@ public class BackButton extends AbstractSprite {
 		paint.setAntiAlias(true);
 	}
 
+	private View.OnClickListener onClickListener = null;
+	public void SetOnClickListener(View.OnClickListener listener){
+		onClickListener = listener;
+	}
+	
 	public void onTouchEvent(MotionEvent event) {
 		if (this.isTouchedIn(event.getX(), event.getY())) {
-			
+			if(onClickListener != null)
+				onClickListener.onClick(null);
 		}
 	}
 

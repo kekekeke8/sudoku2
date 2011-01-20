@@ -5,14 +5,13 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
 import com.liren.game.AbstractSprite;
 import com.liren.game.ISprite;
-import com.liren.game.SpriteAction;
 import com.liren.game.Sprite;
+import com.liren.game.SpriteAction;
 
 public class MenuSprite extends AbstractSprite implements SpriteAction.OnSpriteClickListener {
 
