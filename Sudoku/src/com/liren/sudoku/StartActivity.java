@@ -65,13 +65,14 @@ public class StartActivity extends FullScreenActivity implements SpriteAction.On
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(this.getResources().getString(R.string.confirm_exit));
 		builder.setTitle(this.getResources().getString(R.string.confirm));
+		
+		builder.setPositiveButton(this.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
 		builder.setNegativeButton(this.getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int which) {
 				StartActivity.this.finish();
-			}
-		});
-		builder.setPositiveButton(this.getResources().getString(R.string.no), new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int which) {
 			}
 		});
 		builder.show();
