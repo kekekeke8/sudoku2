@@ -30,7 +30,8 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 		switch (v.id) {
 		case 6: // flash
 			selectLevel = 1;
-			createNewGame();
+			//createNewGame();
+			testNewGameMode();
 			break;
 		case 7: // easy
 			selectLevel = 2;
@@ -57,6 +58,24 @@ public class PlayActivity extends FullScreenActivity implements SpriteAction.OnS
 			}
 			break;
 		}
+	}
+
+	private void testNewGameMode() {
+		sudoku = new SudokuModel();
+		sudoku.setData(
+				"11,71,00,41,51,00,31,00,21,00,00,31,00,00,71,00,11,00,41,51,21,00,31,00,00," +
+				"61,81,61,41,81,00,00,51,21,31,00,00,91,00,00,21,61,00,00,11,00,00,11,81,91," +
+				"41,61,51,71,81,00,00,00,00,91,00,41,00,31,11,00,51,81,21,91,71,00,71,61,91," +
+				"11,00,31,00,21,00");
+		sudoku.setError(0);
+		sudoku.setFinish(0);
+		sudoku.setId(111);
+		sudoku.setShowError(false);
+		sudoku.setTimecost(0);
+		sudoku.setTipcount(100);
+		sudoku.setType(1);
+		game = new GameView(PlayActivity.this, sudoku);
+		PlayActivity.this.setContentView(game);
 	}
 
 	private SudokuModel sudoku = null;
