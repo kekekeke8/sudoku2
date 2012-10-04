@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -23,6 +24,9 @@ import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 public class Service {
@@ -35,79 +39,39 @@ public class Service {
 		}
 	}
 
-	public void test() {
-		String uriAPI = "http://192.168.1.103/1399/1399/server/s_login.php";
-		HttpPost httpRequest = new HttpPost(uriAPI);
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("login_id", "test@huiqu.com"));
-		params.add(new BasicNameValuePair("login_password", "123456"));
-		System.out.println(params.toString());
-		try {
-			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
-			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
-				String strResult = EntityUtils.toString(httpResponse.getEntity());
-				Log.d("D",strResult);
-			} else {
-				Log.d("D","Error Response" + httpResponse.getStatusLine().toString());
+	public void serviceCall(final String service_url,final List<NameValuePair> params,final Handler callBackHandler) {
+		new Thread(new Runnable(){
+			@Override
+			public void run() {
+				HttpPost httpRequest = new HttpPost(service_url);
+				Message msg = new Message();
+				Bundle data  = new Bundle();
+				try {
+					httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
+					HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
+					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
+						String strResult = EntityUtils.toString(httpResponse.getEntity());
+						data.putInt("ret", 0);
+						data.putSerializable("result", strResult);
+					} else {
+						data.putInt("ret", 1);
+						data.putString("result", httpResponse.getStatusLine().toString());
+					}
+				} catch (Exception e) {
+					data.putInt("ret", 9999);
+					data.putString("result", e.toString());
+				}
+				msg.setData(data);
+				callBackHandler.sendMessage(msg);
 			}
-		} catch (ClientProtocolException e) {
-			Log.d("D",e.getMessage().toString());
-			e.printStackTrace();
-		} catch (UnsupportedEncodingException e) {
-			Log.d("D",e.getMessage().toString());
-			e.printStackTrace();
-		} catch (IOException e) {
-			Log.d("D",e.getMessage().toString());
-			e.printStackTrace();
-		}catch(Exception e){
-			Log.d("D",e.getMessage().toString());
-			e.printStackTrace();
-		}
-
+		}).start();
 	}
 
-	public JSONObject login(String login_id, String login_password) {
-		Log.d("D","Hello World!");
-		System.out.println("Hello Console.");
-		test();
-//		try {
-//			return callService("login", login_id, login_password);
-//		} catch (ClientProtocolException e) {
-//			Log.d("D", e.getMessage());
-//		} catch (IOException e) {
-//			Log.d("D", "login exception:" + e.toString());
-//		}
-		return null;
-	}
-
-	public JSONObject callService(String method, String login_id, String login_password) throws ClientProtocolException, IOException {
-		Map<String, String> parmas = new HashMap<String, String>();
-		parmas.put("m", method);
-		parmas.put("login_id", login_id);
-		parmas.put("login_password", login_password);
-		return parseString2JSON(dopost(parmas));
-	}
-
-	private String dopost(Map<String, String> parmas) throws ClientProtocolException, IOException {
-		HttpPost httpPost = new HttpPost("http://huiqu.sinaapp.com/server/s_login.php");
-		// Application.Instance().config.getService_url());
-		List<BasicNameValuePair> pairs = new ArrayList<BasicNameValuePair>();
-		// if (parmas != null) {
-		// for (Iterator<String> i = parmas.keySet().iterator(); i.hasNext();) {
-		// String key = (String) i.next();
-		// pairs.add(new BasicNameValuePair(key, parmas.get(key)));
-		// }
-		// }
-		httpPost.setEntity(new UrlEncodedFormEntity(pairs, "utf-8"));
-
-		HttpResponse response = new DefaultHttpClient().execute(httpPost);
-
-		HttpEntity entity = response.getEntity();
-		InputStream content = entity.getContent();
-
-		String returnConnection = convertStreamToString(content);
-		return returnConnection;
+	public void login(String login_id, String login_password, final Handler  callBackHandler) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("login_id", login_id));
+		params.add(new BasicNameValuePair("login_password", login_password));
+		serviceCall(Application.I().config.getService_url(),params,callBackHandler);
 	}
 
 	private String convertStreamToString(InputStream is) {

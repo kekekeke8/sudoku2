@@ -3,7 +3,7 @@ package com.huiqu.utils;
 public class Application {
 	private static Application _application = null;
 	private Application(){}
-	public static Application Instance(){
+	public static Application I(){
 		if(_application == null)
 			_application = new Application();
 		return _application;
