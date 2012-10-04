@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -58,7 +59,7 @@ public class MainActivity extends NoTitleActivity {
 		public void handleMessage(Message msg) { // 当有消息发送出来的时候就执行Handler的这个方法
 			super.handleMessage(msg);
 			//UI
-			Toast.makeText(getApplicationContext(), msg.toString(), Toast.LENGTH_LONG);
+			Toast.makeText(getApplicationContext(), msg.what + ":" + msg.obj.toString(), Toast.LENGTH_LONG).show();
 		}
 	};
 
@@ -68,26 +69,26 @@ public class MainActivity extends NoTitleActivity {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("login_id", "test@huiqu.com"));
 		params.add(new BasicNameValuePair("login_password", "123456"));
-		System.out.println(params.toString());
 		try {
 			httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 			HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
-			if (httpResponse.getStatusLine().getStatusCode() == 200) {
+			if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 				String strResult = EntityUtils.toString(httpResponse.getEntity());
-				Toast.makeText(getApplicationContext(), strResult, Toast.LENGTH_LONG).show();
-				Log.d("D", strResult);
-				handler.sendEmptyMessage(0);
+				Message msg = new Message();
+				msg.obj = strResult;
+				msg.what = 0;
+				handler.sendMessage(msg);
 			} else {
-				Toast.makeText(getApplicationContext(), httpResponse.getStatusLine().toString(), Toast.LENGTH_LONG).show();
-				Log.d("D", "Error Response" + httpResponse.getStatusLine().toString());
-				handler.sendEmptyMessage(1);
+				Message msg = new Message();
+				msg.obj = httpResponse.getStatusLine().toString();
+				msg.what = 1;
+				handler.sendMessage(msg);
 			}
 		} catch (Exception e) {
-			Toast.makeText(getApplicationContext(), e.toString(), Toast.LENGTH_LONG).show();
-			Log.d("D", e.toString());
-			t.setText(e.toString());
-			e.printStackTrace();
-			handler.sendEmptyMessage(9999);
+			Message msg = new Message();
+			msg.what = 9999;
+			msg.obj = e;
+			handler.sendMessage(msg);
 		}
 	}
 
