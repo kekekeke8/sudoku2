@@ -1,0 +1,26 @@
+<resources>
+
+    <string name="app_name">汇趣工作</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">设置</string>
+    <string name="title_activity_main">汇趣工作</string>
+    <string name="title_activity_first_time">欢迎使用汇趣工作</string>
+    <string name="title_activity_login">新用户注册</string>
+    <string name="title_activity_full_screen">FullScreenActivity</string>
+    <string name="title_activity_record">语音笔记</string>
+    <string name="title_activity_photo">图像记忆</string>
+    <string name="title_activity_note">心情日记</string>
+    <string name="regiest">注册新用户</string>
+    <string name="login">登录</string>
+    <string name="hint_email">汇趣工作   用户邮件地址</string>
+    <string name="password">密码</string>
+    <string name="forget_password">忘记密码?</string>
+    <string name="label_note">心情日记</string>
+    <string name="label_account">帐目日记</string>
+    <string name="label_voice">录音笔记</string>
+    <string name="label_photo">图片印象</string>
+    <string name="label_about">关于我们</string>
+    <string name="label_work">汇趣工作</string>
+    <string name="label_rememberPassword">记住密码</string>
+
+</resources>
