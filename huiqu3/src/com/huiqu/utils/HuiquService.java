@@ -29,17 +29,17 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-public class Service {
-	private JSONObject parseString2JSON(String jsonString) {
-		try {
-			return new JSONObject(jsonString);
-		} catch (JSONException e) {
-			Log.d("D", e.getMessage());
-			return null;
-		}
-	}
+public class HuiquService {
+//	private JSONObject parseString2JSON(String jsonString) {
+//		try {
+//			return new JSONObject(jsonString);
+//		} catch (JSONException e) {
+//			Log.d("D", e.getMessage());
+//			return null;
+//		}
+//	}
 
-	public void serviceCall(final String service_url,final List<NameValuePair> params,final Handler callBackHandler) {
+	public void call(final String service_url,final List<NameValuePair> params,final Handler callBackHandler) {
 		new Thread(new Runnable(){
 			@Override
 			public void run() {
@@ -52,9 +52,9 @@ public class Service {
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 						String strResult = EntityUtils.toString(httpResponse.getEntity());
 						data.putInt("ret", 0);
-						data.putSerializable("result", strResult);
+						data.putString("result", strResult);
 					} else {
-						data.putInt("ret", 1);
+						data.putInt("ret", httpResponse.getStatusLine().getStatusCode());
 						data.putString("result", httpResponse.getStatusLine().toString());
 					}
 				} catch (Exception e) {
@@ -67,31 +67,26 @@ public class Service {
 		}).start();
 	}
 
-	public void login(String login_id, String login_password, final Handler  callBackHandler) {
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("login_id", login_id));
-		params.add(new BasicNameValuePair("login_password", login_password));
-		serviceCall(Application.I().config.getService_url(),params,callBackHandler);
-	}
-
-	private String convertStreamToString(InputStream is) {
-		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-		StringBuilder sb = new StringBuilder();
-		String line = null;
-		try {
-			while ((line = reader.readLine()) != null) {
-				sb.append(line);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-
-		} finally {
-			try {
-				is.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return sb.toString();
-	}
+//	
+//
+//	private String convertStreamToString(InputStream is) {
+//		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//		StringBuilder sb = new StringBuilder();
+//		String line = null;
+//		try {
+//			while ((line = reader.readLine()) != null) {
+//				sb.append(line);
+//			}
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//
+//		} finally {
+//			try {
+//				is.close();
+//			} catch (IOException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		return sb.toString();
+//	}
 }

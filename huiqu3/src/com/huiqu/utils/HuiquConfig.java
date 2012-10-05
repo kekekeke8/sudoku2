@@ -1,6 +1,6 @@
 package com.huiqu.utils;
 
-public class Config {
+public class HuiquConfig {
 	private String service_url = "http://huiqu.sinaapp.com/server/s_login.php";
 	
 	public String getService_url() {
