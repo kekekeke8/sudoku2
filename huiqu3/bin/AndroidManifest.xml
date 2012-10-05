@@ -35,29 +35,29 @@
             android:label="@string/title_activity_login" >
         </activity>
         <activity
-            android:name="com.huiqu.tools.RecordActivity"
-            android:label="@string/title_activity_record" >
+            android:name="com.huiqu.life.RecordActivity"
+            android:label="@string/title_activity_record" 
+            android:icon="@drawable/icon_microphone_on" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.huiqu.life.PhotoActivity"
-            android:label="@string/title_activity_photo" >
+            android:label="@string/title_activity_photo"
+            android:icon="@drawable/icon_camera_on"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.huiqu.life.NoteActivity"
-            android:label="@string/title_activity_note" >
+            android:label="@string/title_activity_note"
+            android:icon="@drawable/icon_write_on"  >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
