@@ -14,6 +14,8 @@ import android.view.View.OnClickListener;
 import android.widget.Toast;
 
 import com.huiqu.common.NoTitleActivity;
+import com.huiqu.life.NoteActivity;
+import com.huiqu.life.PhotoActivity;
 import com.huiqu.life.RecordActivity;
 import com.huiqu.utils.Huiqu;
 
@@ -24,47 +26,15 @@ public class MainActivity extends NoTitleActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		
 		findViewById(R.id.btnNote).setOnClickListener(this);
 		findViewById(R.id.btnRecord).setOnClickListener(this);
 		findViewById(R.id.btnPhoto).setOnClickListener(this);
 		findViewById(R.id.btnRecord).setOnClickListener(this);
 		findViewById(R.id.btnWork).setOnClickListener(this);
 		findViewById(R.id.btnAbout).setOnClickListener(this);
-		
-		Huiqu.I();
-		
-//		btnRecord = (Button) this.findViewById(R.id.btnRecord);
-//		btnAccount = (Button) this.findViewById(R.id.btnAccount);
-//		btnPhoto = (Button) this.findViewById(R.id.btnPhoto);
-//		btnNote = (Button) this.findViewById(R.id.btnNote);
-//		btnAbout = (Button) this.findViewById(R.id.btnAbout);
-//		btnWork = (Button) this.findViewById(R.id.btnWork);
-//		
-//		btnRecord.setOnClickListener(this);
 	}
-//	private Button btnRecord = null;
-//	private Button btnAbout = null;
-//	private Button btnNote = null;
-//	private Button btnPhoto = null;
-//	private Button btnAccount = null;
-//	private Button btnWork = null;
 	
-	@SuppressLint("HandlerLeak")
-	Handler callBackHandler = new Handler(){
-	    @Override
-	    public void handleMessage(Message msg) {
-	        super.handleMessage(msg);
-	        JSONObject ret = null;
-			try {
-				ret = new JSONObject(msg.getData().getString("result"));
-				Toast.makeText(getApplicationContext(), msg.what + ":[" + ret.getString("message") + "]", Toast.LENGTH_LONG).show();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-	        
-	    }
-	};
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -80,6 +50,18 @@ public class MainActivity extends NoTitleActivity implements OnClickListener {
 	        intent.putExtra("mode","ui");
 	        intent.setClass(MainActivity.this, RecordActivity.class);
 	        this.startActivity(intent);
+			break;
+		case R.id.btnPhoto:
+			Intent iPhoto = new Intent();
+			iPhoto.putExtra("mode","ui");
+			iPhoto.setClass(MainActivity.this, PhotoActivity.class);
+	        this.startActivity(iPhoto);
+			break;
+		case R.id.btnNote:
+			Intent iNote = new Intent();
+			iNote.putExtra("mode","ui");
+			iNote.setClass(MainActivity.this, NoteActivity.class);
+	        this.startActivity(iNote);
 			break;
 		}
 	}

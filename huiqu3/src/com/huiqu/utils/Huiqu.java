@@ -1,5 +1,7 @@
 package com.huiqu.utils;
 
+import com.huiqu.model.UserInfo;
+
 
 public class Huiqu {
 	private static Huiqu _huiqu = null;
@@ -14,4 +16,5 @@ public class Huiqu {
 	public HuiquConfig config = new HuiquConfig();
 	public HuiquService service = new HuiquService();
 	public HuiquMethods methods = new HuiquMethods(this,service,config);
+	public UserInfo user = new UserInfo();
 }

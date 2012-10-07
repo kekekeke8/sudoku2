@@ -1,12 +1,13 @@
 package com.huiqu.utils;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
-import android.provider.MediaStore;
-import android.widget.Toast;
 
 public class Utils {
 	public String record(Activity activity){
@@ -37,4 +38,56 @@ public class Utils {
 		}
 		
 	}
+	
+	public static File[] getPhotoList(){
+		FilenameFilter f = new FilenameFilter() {
+			@Override
+			public boolean accept(File file, String arg1) {
+				return arg1.endsWith(".jpg");
+			}
+		};
+		return listfile(Huiqu.I().config.photo_path,f);
+	}
+	
+	public static File[] getVoiceList(){
+		FilenameFilter f = new FilenameFilter() {
+			@Override
+			public boolean accept(File file, String arg1) {
+				return arg1.endsWith(".amr") || arg1.endsWith(".mp3") || arg1.endsWith(".m4a");
+			}
+		};
+		return listfile(Huiqu.I().config.voice_path,f);
+	}
+	
+	public static File[] getVideoList(){
+		FilenameFilter f = new FilenameFilter() {
+			@Override
+			public boolean accept(File file, String arg1) {
+				return arg1.endsWith(".3gp") || arg1.endsWith(".mp4");
+			}
+		};
+		return listfile(Huiqu.I().config.video_path,f);
+	}
+	
+	public static File[] listfile(String path,FilenameFilter filter){
+		File filepath = new File(path);
+		if(filepath.exists()){
+			return filepath.listFiles(filter);
+		}return null;
+	}
+	
+	static public void getFileList(File path, Map<String, String> fileList){
+	     if(path.isDirectory()){
+	         File[] files = path.listFiles();
+	         if(null == files) return;
+	         for(int i = 0; i < files.length; i++){
+	             getFileList(files[i], fileList);
+	         }
+	     }
+	     else{
+	         String filePath = path.getAbsolutePath();
+	         String fileName = filePath.substring(filePath.lastIndexOf("/")+1);
+	         fileList.put(fileName, filePath);
+	     }
+	 }
 }
