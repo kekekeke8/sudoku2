@@ -10,7 +10,7 @@
         android:id="@+id/btnNavHome"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:background="@color/blog_item_time_text_new"
+        style="@style/button_back"
         android:text="@string/label_home" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:id="@+id/btnNavReturn"
         android:layout_width="60dp"
         android:layout_height="30dp"
-        android:background="@color/detail_redirect"
+       	style="@style/button_home"
         android:text="@string/label_return" />
 
 </LinearLayout>
