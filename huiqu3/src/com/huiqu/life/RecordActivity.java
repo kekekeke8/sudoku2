@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,24 +20,31 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
-import com.huiqu.common.NoTitleActivity;
+import com.huiqu.common.FileAdapter;
+import com.huiqu.common.HuiquActivity;
+import com.huiqu.common.ItemOptionPerformed;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.utils.Utils;
 import com.huiqu.work.R;
 
-public class RecordActivity extends NoTitleActivity implements OnClickListener {
+public class RecordActivity extends HuiquActivity implements OnClickListener, ItemOptionPerformed, OnCompletionListener {
+	private ListView listview;
+	private MediaPlayer player = null;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		String mode = this.getIntent().getStringExtra("mode");
 		if (mode != null) {
 			if (mode.equals("ui")) {
 				showUI = true;
 				setContentView(R.layout.activity_record);
+				initNavbar("Voice Note");
 				this.findViewById(R.id.btnRecord).setOnClickListener(this);
 				showfile();
 			} else {
@@ -43,15 +53,13 @@ public class RecordActivity extends NoTitleActivity implements OnClickListener {
 		} else {
 			this.onClick(null);
 		}
-
 	}
 
 	private void showfile() {
-		SimpleAdapter adapter = new SimpleAdapter(this, listfile(), R.layout.vlist, 
-				new String[] { "title", "info", "img" }, 
-				new int[] { R.id.title, R.id.info, R.id.img });
-		ListView listview = (ListView) findViewById(R.id.listview);
+		FileAdapter adapter = new FileAdapter(this, listfile(), this);
+		listview = (ListView) findViewById(R.id.listview);
 		listview.setAdapter(adapter);
+
 	}
 
 	public List<Map<String, Object>> listfile() {
@@ -60,14 +68,16 @@ public class RecordActivity extends NoTitleActivity implements OnClickListener {
 		for (File file : files) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("title", file.getName());
-			map.put("info", Long.toString(file.length()));
+			map.put("info", "[" + new Date(file.lastModified()).toLocaleString() + "   " + Long.toString(file.length() / 1000) + "k]");
 			map.put("img", android.R.drawable.presence_audio_away);
+			map.put("file", file);
 			list.add(map);
 		}
 		return list;
 	}
 
 	private boolean showUI = false;
+	@SuppressLint("HandlerLeak")
 	Handler callBackHandler = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -101,10 +111,12 @@ public class RecordActivity extends NoTitleActivity implements OnClickListener {
 					SimpleDateFormat dateFormater = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 					String target = Huiqu.I().config.voice_path + "/voice" + dateFormater.format(new Date()) + source.substring(source.lastIndexOf("."), source.length());
 					Utils.movefile(source, target);
-					showfile();
+
 					if (!this.showUI)
 						this.finish();
-					
+					else
+						showfile();
+
 				}
 			}
 			break;
@@ -113,8 +125,59 @@ public class RecordActivity extends NoTitleActivity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-		intent.setType("audio/*");
-		startActivityForResult(intent, 0);
+		if (v.getId() == R.id.btnRecord) {
+			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+			intent.setType("audio/*");
+			startActivityForResult(intent, 0);
+		} else {
+
+		}
+	}
+
+	private Map<String, Object> selectedItem = null;
+
+		@Override
+	public void onCompletion(MediaPlayer arg0) {
+		this.selectedItem = null;
+		getString(R.string.label_play);
+	}
+
+	private Button lastButton = null;
+	@Override
+	public void itemOptionOnClick(Map<String, Object> item, int position, Button button) {
+		try {
+			listview.setSelection(position);
+			listview.requestFocus();
+			if (this.selectedItem != item) {
+				if (item != null) {
+					File file = (File) item.get("file");
+					if (file.exists()) {
+						if(player != null){
+							if(player.isPlaying()) 
+								player.stop();
+							player.release();
+							player = null;
+						}
+						player = new MediaPlayer();
+						player.setOnCompletionListener(this);
+						player.setDataSource(file.getAbsolutePath());
+						player.prepare();
+						player.start();
+						if(lastButton != null)	
+							lastButton.setText(getString(R.string.label_play));
+						button.setText(getString(R.string.label_stop));
+					}
+					this.selectedItem = item;
+				}
+			} else {
+				if(player.isPlaying()) player.stop();				
+				this.selectedItem = null;
+				button.setText(getString(R.string.label_play));
+			}
+			lastButton = button;
+		} catch (Exception e) {
+			e.printStackTrace();
+			getString(R.string.label_play);
+		}	
 	}
 }

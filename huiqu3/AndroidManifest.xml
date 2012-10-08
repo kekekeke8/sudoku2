@@ -66,12 +66,16 @@
         </activity>
         <activity
             android:name=".RegistActivity"
-            android:label="@string/title_activity_" >
+            android:label="@string/regist" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.huiqu.life.AccountActivity"
+            android:label="@string/title_activity_account" >
         </activity>
     </application>
 

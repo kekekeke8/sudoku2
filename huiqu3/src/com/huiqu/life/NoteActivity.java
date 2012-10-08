@@ -13,16 +13,18 @@ import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.huiqu.common.HuiquActivity;
 import com.huiqu.common.NoTitleActivity;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.work.R;
 
-public class NoteActivity extends NoTitleActivity implements OnClickListener {
+public class NoteActivity extends HuiquActivity implements OnClickListener {
 
 	private boolean showUI = false;
 
@@ -30,18 +32,22 @@ public class NoteActivity extends NoTitleActivity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_note);
+		initNavbar("Note");
+
 		String mode = this.getIntent().getStringExtra("mode");
-		if (mode != null) showUI = mode.equals("ui");
+		if (mode != null)
+			showUI = mode.equals("ui");
 		this.findViewById(R.id.btnPost).setOnClickListener(this);
 		this.findViewById(R.id.btnCancel).setOnClickListener(this);
 	}
+
 	ProgressDialog progress = null;
 	@SuppressLint("HandlerLeak")
-	Handler callBackHandler = new Handler(){
-	    @Override
-	    public void handleMessage(Message msg) {
-	        super.handleMessage(msg);
-	        JSONObject ret = null;
+	Handler callBackHandler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			super.handleMessage(msg);
+			JSONObject ret = null;
 			try {
 				progress.dismiss();
 				ret = new JSONObject(msg.getData().getString("result"));
@@ -49,10 +55,12 @@ public class NoteActivity extends NoTitleActivity implements OnClickListener {
 			} catch (JSONException e) {
 				e.printStackTrace();
 			}
-			
-			if(!showUI) finish();
-	    }
+
+			if (!showUI)
+				finish();
+		}
 	};
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_note, menu);
@@ -64,12 +72,12 @@ public class NoteActivity extends NoTitleActivity implements OnClickListener {
 		switch (v.getId()) {
 		case R.id.btnPost:
 			String note = "";
-//			progress = new ProgressDialog(getApplicationContext());
-//			progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-//			progress.setIcon(R.drawable.icon_write_on);
-//			progress.setMessage("Loading...");  
-//			progress.setCancelable(false);  
-//			progress.show();
+			// progress = new ProgressDialog(getApplicationContext());
+			// progress.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			// progress.setIcon(R.drawable.icon_write_on);
+			// progress.setMessage("Loading...");
+			// progress.setCancelable(false);
+			// progress.show();
 			doPostNote(note);
 			break;
 

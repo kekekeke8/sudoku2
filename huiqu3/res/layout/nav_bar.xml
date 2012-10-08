@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="40dp"
+    android:background="@color/downloading_btn_color"
+    android:gravity="center_horizontal"
+    android:padding="2dp" >
+
+    <Button
+        android:id="@+id/btnNavHome"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@color/blog_item_time_text_new"
+        android:text="@string/label_home" />
+
+    <TextView
+        android:id="@+id/txtNavTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center_horizontal|center_vertical"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/detail_toolbar_text" />
+
+    <Button
+        android:id="@+id/btnNavReturn"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:background="@color/detail_redirect"
+        android:text="@string/label_return" />
+
+</LinearLayout>

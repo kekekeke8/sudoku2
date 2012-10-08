@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="null_color">#00ffffff</color>
     <color name="download_btn_color">#ffdddddd</color>
@@ -132,4 +131,33 @@
     <color name="draft_failinfo_color">#ff810000</color>
     <color name="say_hi_nick_color">#ff37adff</color>
     <color name="pull_down_text_color">#ffa3a7ac</color>
+    
+    <color name="bgA">#F58B19</color>
+	<color name="bgB">#049CF7</color>
+	<color name="bgC">#809075</color>
+	<color name="bgD">#572308</color>
+	<color name="bgE">#B31D40</color>
+	<color name="bgF">#486A00</color>
+	<color name="bgG">#7EAD18</color>
+	<color name="bgH">#7F5FA2</color>
+	<color name="bgI">#1EBC9C</color>
+	<color name="bgJ">#C82446</color>
+	<color name="bgK">#D7B402</color>
+	<color name="bgL">#B3D465</color>
+	<color name="bgM">#024B9A</color>
+	<color name="bgN">#00BCE2</color>
+	<color name="bgO">#7B8D81</color>
+	<color name="bgP">#7E8C73</color>
+	<color name="bgQ">#8FC31F</color>
+	<color name="bgR">#2D89F0</color>
+	<color name="bgS">#8C97CB</color>
+	<color name="bgT">#4EB4B9</color>
+	<color name="bgU">#C490BF</color>	
+	<color name="bgV">#5B59BA</color>
+	<color name="bgW">#F39800</color>
+	<color name="bgX">#7E35BD</color>
+	<color name="bgY">#4CB8BA</color>
+	<color name="bgZ">#7A1764</color>
+	<color name="bgA1">#A2B22F</color>
+
 </resources>

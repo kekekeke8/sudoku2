@@ -15,22 +15,25 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.huiqu.common.HuiquActivity;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.utils.Utils;
 import com.huiqu.work.R;
 
-public class PhotoActivity extends Activity implements OnClickListener {
+public class PhotoActivity extends HuiquActivity implements OnClickListener {
 
 	private boolean showUI = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		String mode = this.getIntent().getStringExtra("mode");
 		if (mode != null) {
 			if (mode.equals("ui")) {
 				showUI = true;
 				setContentView(R.layout.activity_photo);
+				initNavbar("Image Memory");
 				this.findViewById(R.id.btnCapture).setOnClickListener(this);
 				this.findViewById(R.id.btnSelectPhoto).setOnClickListener(this);
 			} else {
