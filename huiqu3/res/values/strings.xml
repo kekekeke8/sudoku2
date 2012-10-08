@@ -31,5 +31,6 @@
     <string name="title_activity_account">AccountActivity</string>
     <string name="label_play">播放</string>
     <string name="label_stop">停止</string>
+    <string name="info_take_photo_complete">照片保存完毕</string>
 
 </resources>

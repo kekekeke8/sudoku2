@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.huiqu.common.FileAdapter;
@@ -44,7 +45,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 			if (mode.equals("ui")) {
 				showUI = true;
 				setContentView(R.layout.activity_record);
-				initNavbar("Voice Note");
+				initNavbar(getString(R.string.label_voice));
 				this.findViewById(R.id.btnRecord).setOnClickListener(this);
 				showfile();
 			} else {
@@ -56,13 +57,35 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 	}
 
 	private void showfile() {
-		FileAdapter adapter = new FileAdapter(this, listfile(), this);
+		final ProgressBar prog = (ProgressBar) findViewById(R.id.prog);
 		listview = (ListView) findViewById(R.id.listview);
-		listview.setAdapter(adapter);
+		prog.setVisibility(View.VISIBLE);
+		listview.setVisibility(View.INVISIBLE);
+		
+		final Handler handler = new Handler() {
+			public void handleMessage(Message message) {
+				FileAdapter adapter = (FileAdapter) message.obj;
+				listview.setAdapter(adapter);
+				prog.setVisibility(View.INVISIBLE);
+				listview.setVisibility(View.VISIBLE);
+			}
+		};
 
+		new Thread() {
+			@Override
+			public void run() {
+				Message message = handler.obtainMessage(0, new FileAdapter(RecordActivity.this, listfile(), RecordActivity.this));
+				handler.sendMessage(message);
+			}
+		}.start();
 	}
-
 	public List<Map<String, Object>> listfile() {
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		File[] files = Utils.getVoiceList();
 		for (File file : files) {
@@ -77,21 +100,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 	}
 
 	private boolean showUI = false;
-	@SuppressLint("HandlerLeak")
-	Handler callBackHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			try {
-
-				// Toast.makeText(getApplicationContext(), "",
-				// Toast.LENGTH_LONG).show();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	};
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_record, menu);

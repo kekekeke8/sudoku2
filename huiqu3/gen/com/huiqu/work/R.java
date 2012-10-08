@@ -217,30 +217,31 @@ public final class R {
         public static final int btnAbout=0x7f090013;
         public static final int btnAccount=0x7f090012;
         public static final int btnCancel=0x7f090006;
-        public static final int btnCapture=0x7f090017;
+        public static final int btnCapture=0x7f090016;
         public static final int btnLogin=0x7f09000a;
-        public static final int btnNavHome=0x7f090018;
-        public static final int btnNavReturn=0x7f09001a;
+        public static final int btnNavHome=0x7f090019;
+        public static final int btnNavReturn=0x7f09001b;
         public static final int btnNote=0x7f09000f;
-        public static final int btnOption=0x7f09001e;
+        public static final int btnOption=0x7f09001f;
         public static final int btnPhoto=0x7f090010;
         public static final int btnPost=0x7f090007;
         public static final int btnRecord=0x7f090011;
         public static final int btnRegiest=0x7f090009;
-        public static final int btnSelectPhoto=0x7f090016;
+        public static final int btnSelectPhoto=0x7f090015;
         public static final int btnWork=0x7f090014;
         public static final int button1=0x7f090004;
         public static final int button2=0x7f090005;
         public static final int chbRememberPassword=0x7f09000d;
         public static final int imageView1=0x7f090008;
-        public static final int img=0x7f09001b;
-        public static final int info=0x7f09001d;
-        public static final int listview=0x7f090015;
-        public static final int menu_settings=0x7f09001f;
-        public static final int title=0x7f09001c;
+        public static final int img=0x7f09001c;
+        public static final int info=0x7f09001e;
+        public static final int listview=0x7f090018;
+        public static final int menu_settings=0x7f090020;
+        public static final int prog=0x7f090017;
+        public static final int title=0x7f09001d;
         public static final int txtEmail=0x7f09000b;
         public static final int txtLostPassword=0x7f09000e;
-        public static final int txtNavTitle=0x7f090019;
+        public static final int txtNavTitle=0x7f09001a;
         public static final int txtPassword=0x7f09000c;
     }
     public static final class layout {
@@ -252,8 +253,9 @@ public final class R {
         public static final int activity_note=0x7f030005;
         public static final int activity_photo=0x7f030006;
         public static final int activity_record=0x7f030007;
-        public static final int nav_bar=0x7f030008;
-        public static final int vlist=0x7f030009;
+        public static final int listview=0x7f030008;
+        public static final int nav_bar=0x7f030009;
+        public static final int vlist=0x7f03000a;
     }
     public static final class menu {
         public static final int activity_=0x7f080000;
@@ -271,6 +273,7 @@ public final class R {
         public static final int forget_password=0x7f06000d;
         public static final int hello_world=0x7f06001b;
         public static final int hint_email=0x7f06000b;
+        public static final int info_take_photo_complete=0x7f06001f;
         public static final int label_about=0x7f060012;
         public static final int label_account=0x7f06000f;
         public static final int label_cancel=0x7f060019;

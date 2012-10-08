@@ -2,46 +2,100 @@ package com.huiqu.life;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.huiqu.common.FileAdapter;
 import com.huiqu.common.HuiquActivity;
+import com.huiqu.common.ItemOptionPerformed;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.utils.Utils;
 import com.huiqu.work.R;
 
-public class PhotoActivity extends HuiquActivity implements OnClickListener {
+public class PhotoActivity extends HuiquActivity implements OnClickListener, ItemOptionPerformed {
 
 	private boolean showUI = false;
+	private ListView listview;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		String mode = this.getIntent().getStringExtra("mode");
 		if (mode != null) {
 			if (mode.equals("ui")) {
 				showUI = true;
 				setContentView(R.layout.activity_photo);
-				initNavbar("Image Memory");
+				initNavbar(getString(R.string.label_photo));
 				this.findViewById(R.id.btnCapture).setOnClickListener(this);
-				this.findViewById(R.id.btnSelectPhoto).setOnClickListener(this);
+				showfile();
 			} else {
 				cameraMethod();
 			}
 		} else {
 			cameraMethod();
 		}
+	}
+	
+	private void showfile() {
+		final ProgressBar prog = (ProgressBar) findViewById(R.id.prog);
+		listview = (ListView) findViewById(R.id.listview);
+		prog.setVisibility(View.VISIBLE);
+		listview.setVisibility(View.INVISIBLE);
+		final Handler handler = new Handler() {
+			public void handleMessage(Message message) {
+				FileAdapter adapter = (FileAdapter) message.obj;
+				listview.setAdapter(adapter);
+				prog.setVisibility(View.INVISIBLE);
+				listview.setVisibility(View.VISIBLE);
+			}
+		};
+		new Thread() {
+			@Override
+			public void run() {
+				Message message = handler.obtainMessage(0, new FileAdapter(PhotoActivity.this, listfile(), null, true));
+				handler.sendMessage(message);
+			}
+		}.start();
+	}
+
+	public List<Map<String, Object>> listfile() {
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+		File[] files = Utils.getPhotoList();
+		for (File file : files) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("title", file.getName());
+			map.put("info", "[" + new Date(file.lastModified()).toLocaleString() + "   " + Long.toString(file.length() / 1000) + "k]");
+			map.put("img", android.R.drawable.alert_dark_frame);
+			map.put("file", file);
+			list.add(map);
+		}
+		return list;
 	}
 
 	private void cameraMethod() {
@@ -71,7 +125,11 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener {
 		if (resultCode == RESULT_OK) {
 			switch (requestCode) {
 			case 1:// 拍照
-				Toast.makeText(this, "照片保存完毕", Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, getString(R.string.info_take_photo_complete), Toast.LENGTH_SHORT).show();
+				if (!this.showUI) 
+					this.finish();
+				else
+					showfile();
 				break;
 			case 0:
 				Uri uriRecorder = data.getData();
@@ -83,7 +141,10 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener {
 					String target = Huiqu.I().config.photo_path + "/image" + dateFormater.format(new Date()) + source.substring(source.lastIndexOf("."), source.length());
 					Utils.movefile(source, target);
 					Toast.makeText(getApplicationContext(), target, Toast.LENGTH_LONG).show();
-					if (!this.showUI) this.finish();
+					if (!this.showUI) 
+						this.finish();
+					else
+						showfile();
 				}
 				break;
 			}
@@ -101,5 +162,11 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener {
 			selectPhoto();
 			break;
 		}
+	}
+
+	@Override
+	public void itemOptionOnClick(Map<String, Object> selectedItem, int position, Button button) {
+		// TODO Auto-generated method stub
+
 	}
 }
