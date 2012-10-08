@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="40dp"
+    android:layout_height="50dp"
     android:background="@color/downloading_btn_color"
-    android:gravity="center_horizontal"
-    android:padding="2dp" >
+    android:gravity="center_horizontal" >
 
     <Button
         android:id="@+id/btnNavHome"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
         style="@style/button_back"
+        android:layout_width="60dp"
+        android:layout_height="35dp"
+       
         android:text="@string/label_home" />
 
     <TextView
@@ -24,9 +24,9 @@
 
     <Button
         android:id="@+id/btnNavReturn"
+        style="@style/button_home"
         android:layout_width="60dp"
-        android:layout_height="30dp"
-       	style="@style/button_home"
+        android:layout_height="35dp"
         android:text="@string/label_return" />
 
 </LinearLayout>
