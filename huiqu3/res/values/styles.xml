@@ -35,4 +35,25 @@
     <style name="button1" parent="button">
          <item name="android:background">@drawable/menu_button1</item>
     </style>
+    <style name="button2" parent="button">
+         <item name="android:background">@drawable/menu_button2</item>
+    </style>
+     <style name="button3" parent="button">
+         <item name="android:background">@drawable/menu_button3</item>
+    </style>
+    <style name="button4" parent="button">
+         <item name="android:background">@drawable/menu_button4</item>
+    </style>
+    <style name="button5" parent="button">
+         <item name="android:background">@drawable/menu_button5</item>
+    </style>
+    <style name="button6" parent="button">
+         <item name="android:background">@drawable/menu_button6</item>
+    </style>
+    <style name="button_back" parent="button">
+         <item name="android:background">@drawable/menu_button5</item>
+    </style>
+    <style name="button_home" parent="button">
+         <item name="android:background">@drawable/menu_button6</item>
+    </style>
 </resources>
