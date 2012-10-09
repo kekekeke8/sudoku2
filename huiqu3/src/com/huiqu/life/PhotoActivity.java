@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -19,19 +18,18 @@ import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.huiqu.common.FileAdapter;
 import com.huiqu.common.HuiquActivity;
-import com.huiqu.common.ItemOptionPerformed;
+import com.huiqu.common.PhotoAdapter;
+import com.huiqu.common.VoiceAdapter;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.utils.Utils;
 import com.huiqu.work.R;
 
-public class PhotoActivity extends HuiquActivity implements OnClickListener, ItemOptionPerformed {
+public class PhotoActivity extends HuiquActivity implements OnClickListener {
 
 	private boolean showUI = false;
 	private ListView listview;
@@ -55,7 +53,7 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 			cameraMethod();
 		}
 	}
-	
+
 	private void showfile() {
 		final ProgressBar prog = (ProgressBar) findViewById(R.id.prog);
 		listview = (ListView) findViewById(R.id.listview);
@@ -63,7 +61,7 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 		listview.setVisibility(View.INVISIBLE);
 		final Handler handler = new Handler() {
 			public void handleMessage(Message message) {
-				FileAdapter adapter = (FileAdapter) message.obj;
+				PhotoAdapter adapter = (PhotoAdapter) message.obj;
 				listview.setAdapter(adapter);
 				prog.setVisibility(View.INVISIBLE);
 				listview.setVisibility(View.VISIBLE);
@@ -72,28 +70,25 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 		new Thread() {
 			@Override
 			public void run() {
-				Message message = handler.obtainMessage(0, new FileAdapter(PhotoActivity.this, listfile(), null, true));
+				Message message = handler.obtainMessage(0, new PhotoAdapter(PhotoActivity.this, listfile()));
 				handler.sendMessage(message);
 			}
 		}.start();
 	}
 
 	public List<Map<String, Object>> listfile() {
-		try {
-			Thread.sleep(10000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		File[] files = Utils.getPhotoList();
-		for (File file : files) {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("title", file.getName());
-			map.put("info", "[" + new Date(file.lastModified()).toLocaleString() + "   " + Long.toString(file.length() / 1000) + "k]");
-			map.put("img", android.R.drawable.alert_dark_frame);
-			map.put("file", file);
-			list.add(map);
+		if (files != null) {
+			for (File file : files) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("title", file.getName());
+				map.put("info", "[" + new Date(file.lastModified()).toLocaleString() + "   " + Long.toString(file.length() / 1000) + "k]");
+				map.put("img", android.R.drawable.alert_dark_frame);
+				map.put("file", file);
+				list.add(map);
+			}
 		}
 		return list;
 	}
@@ -126,9 +121,7 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 			switch (requestCode) {
 			case 1:// 拍照
 				Toast.makeText(this, getString(R.string.info_take_photo_complete), Toast.LENGTH_SHORT).show();
-				if (!this.showUI) 
-					this.finish();
-				else
+				if (this.showUI)
 					showfile();
 				break;
 			case 0:
@@ -136,19 +129,18 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 				Cursor cursor = this.getContentResolver().query(uriRecorder, null, null, null, null);
 				if (cursor.moveToNext()) {
 					String source = cursor.getString(cursor.getColumnIndex("_data"));
-
 					SimpleDateFormat dateFormater = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 					String target = Huiqu.I().config.photo_path + "/image" + dateFormater.format(new Date()) + source.substring(source.lastIndexOf("."), source.length());
 					Utils.movefile(source, target);
 					Toast.makeText(getApplicationContext(), target, Toast.LENGTH_LONG).show();
-					if (!this.showUI) 
-						this.finish();
-					else
+					if (this.showUI)
 						showfile();
 				}
 				break;
 			}
 		}
+		if (!this.showUI)
+			this.finish();
 	}
 
 	@Override
@@ -162,11 +154,5 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener, Ite
 			selectPhoto();
 			break;
 		}
-	}
-
-	@Override
-	public void itemOptionOnClick(Map<String, Object> selectedItem, int position, Button button) {
-		// TODO Auto-generated method stub
-
 	}
 }

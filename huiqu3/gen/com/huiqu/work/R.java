@@ -232,17 +232,21 @@ public final class R {
         public static final int button1=0x7f090004;
         public static final int button2=0x7f090005;
         public static final int chbRememberPassword=0x7f09000d;
+        public static final int icon=0x7f090020;
         public static final int imageView1=0x7f090008;
         public static final int img=0x7f09001c;
         public static final int info=0x7f09001e;
         public static final int listview=0x7f090018;
-        public static final int menu_settings=0x7f090020;
+        public static final int menu_settings=0x7f090024;
+        public static final int modify_date=0x7f090023;
+        public static final int note=0x7f090021;
         public static final int prog=0x7f090017;
         public static final int title=0x7f09001d;
         public static final int txtEmail=0x7f09000b;
         public static final int txtLostPassword=0x7f09000e;
         public static final int txtNavTitle=0x7f09001a;
         public static final int txtPassword=0x7f09000c;
+        public static final int user_name=0x7f090022;
     }
     public static final class layout {
         public static final int activity_about=0x7f030000;
@@ -255,7 +259,10 @@ public final class R {
         public static final int activity_record=0x7f030007;
         public static final int listview=0x7f030008;
         public static final int nav_bar=0x7f030009;
-        public static final int vlist=0x7f03000a;
+        public static final int vlist_file=0x7f03000a;
+        public static final int vlist_note=0x7f03000b;
+        public static final int vlist_photo=0x7f03000c;
+        public static final int vlist_simple_note=0x7f03000d;
     }
     public static final class menu {
         public static final int activity_=0x7f080000;

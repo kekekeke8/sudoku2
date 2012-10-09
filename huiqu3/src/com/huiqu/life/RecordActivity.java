@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -23,11 +22,10 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import com.huiqu.common.FileAdapter;
 import com.huiqu.common.HuiquActivity;
 import com.huiqu.common.ItemOptionPerformed;
+import com.huiqu.common.VoiceAdapter;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.utils.Utils;
 import com.huiqu.work.R;
@@ -64,7 +62,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 		
 		final Handler handler = new Handler() {
 			public void handleMessage(Message message) {
-				FileAdapter adapter = (FileAdapter) message.obj;
+				VoiceAdapter adapter = (VoiceAdapter) message.obj;
 				listview.setAdapter(adapter);
 				prog.setVisibility(View.INVISIBLE);
 				listview.setVisibility(View.VISIBLE);
@@ -74,18 +72,12 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 		new Thread() {
 			@Override
 			public void run() {
-				Message message = handler.obtainMessage(0, new FileAdapter(RecordActivity.this, listfile(), RecordActivity.this));
+				Message message = handler.obtainMessage(0, new VoiceAdapter(RecordActivity.this, listfile(), RecordActivity.this));
 				handler.sendMessage(message);
 			}
 		}.start();
 	}
 	public List<Map<String, Object>> listfile() {
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		File[] files = Utils.getVoiceList();
 		for (File file : files) {

@@ -9,23 +9,16 @@
         android:layout_height="wrap_content"
         layout="@layout/nav_bar" />
 
-	<LinearLayout
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	    android:layout_weight="1"
-	    android:orientation="vertical" >
-	</LinearLayout>
+    <include
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+		android:layout_weight="1"
+        layout="@layout/listview" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
-
-         <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="3"
-            android:text="@string/label_cancel" />
         <Button
             android:id="@+id/btnPost"
             android:layout_width="match_parent"

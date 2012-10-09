@@ -1,18 +1,18 @@
 package com.huiqu.model;
 
-public class UserInfo {
-	private int id;
+public class UserEntity {
+	private String id;
 	private String name;
 	private String dept;
 	private int sex;
 	private int age;
 	private String email;
+	private String icon;
 	
-	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -44,5 +44,15 @@ public class UserInfo {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public static UserEntity get(String user_id) {
+		// 
+		return null;
+	}
+	public String getIcon() {
+		return icon;
+	}
+	public void setIcon(String icon) {
+		this.icon = icon;
 	}
 }
