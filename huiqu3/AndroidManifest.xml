@@ -60,7 +60,16 @@
             android:label="@string/title_activity_note" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.huiqu.life.NewNoteActivity"
+            android:icon="@drawable/icon_write_on"
+            android:label="@string/label_newnote" 
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -1,5 +1,7 @@
 package com.huiqu.life;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,9 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +25,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,11 +55,37 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 			listview = (ListView) findViewById(R.id.listview);
 			listview.setOnItemSelectedListener(this);
 			listview.setOnScrollListener(this);
+			Button btnNewNote = (Button)findViewById(R.id.btnNewNote);
+			btnNewNote.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View arg0) {
+					newNote();
+				}
+			});
 			showData();
 		}else{
-			Toast.makeText(getApplicationContext(), "do not show note ui?!", Toast.LENGTH_LONG).show();
+			newNote();
 		}
 	}
+	protected void newNote() {
+		Intent intent = new Intent(this,NewNoteActivity.class);
+		startActivityForResult(intent, 0);
+	}
+	
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if(resultCode == RESULT_OK){
+			String note = data.getStringExtra("note");
+			if(note.trim().length() > 0){
+				doPostNote(note);
+			}
+		}else{
+			if (!showUI) finish();
+		}
+	}
+
+
 	private ListView listview;
 	private void showData() {
 		final ProgressBar prog = (ProgressBar) findViewById(R.id.prog);		
@@ -92,23 +124,6 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 		return list;
 	}
 	
-	Handler callBackHandler = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			super.handleMessage(msg);
-			JSONObject ret = null;
-			try {
-				ret = new JSONObject(msg.getData().getString("result"));
-				Toast.makeText(getApplicationContext(), msg.what + ":[" + ret.getString("message") + "]", Toast.LENGTH_LONG).show();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			}
-
-			if (!showUI)
-				finish();
-		}
-	};
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_note, menu);
@@ -133,7 +148,21 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("login_id", Huiqu.I().user.getId()));
 		params.add(new BasicNameValuePair("note", note));
-		Huiqu.I().service.call(Huiqu.I().config.getService_url(), params, callBackHandler);
+		Huiqu.I().service.call(Huiqu.I().config.getService_url(), params, new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				super.handleMessage(msg);
+				JSONObject ret = null;
+				try {
+					ret = new JSONObject(msg.getData().getString("result"));
+					Toast.makeText(getApplicationContext(), msg.what + ":[" + ret.getString("message") + "]", Toast.LENGTH_LONG).show();
+				} catch (JSONException e) {
+					e.printStackTrace();
+				}
+
+				if (!showUI) finish();
+			}
+		});
 	}
 	@Override
 	public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
