@@ -114,10 +114,9 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 		for (int i = 0;i < 120; i++) {
 			NoteEntity note = new NoteEntity();
 			note.setNote("大家好！书法俱乐部就要开始活动啦！7月24日下周二18:00——19:30首享大会议室，请大家准备好书法用具，毛笔：中号兼毫，硬笔：用签字笔即可，墨汁、宣纸、砚台工会统一购买。请大家每次携带好用笔参加学习。" + i);
-			UserEntity user = new UserEntity();
-			user.setIcon(R.drawable.icon_change+"");
-			user.setName("工会");
-			note.setUser_info(user);
+			note.setUser_id("2222");
+			note.setUserNickname("工会");
+			note.setUser_icon(R.drawable.ic_launcher);
 			note.setModify_date(new Date());
 			list.add(note);
 		}
