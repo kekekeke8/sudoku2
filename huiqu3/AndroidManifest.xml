@@ -26,10 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".FirstTimeActivity"
-            android:label="@string/title_activity_first_time" >
-        </activity>
+
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
@@ -68,19 +65,11 @@
             android:icon="@drawable/icon_write_on"
             android:label="@string/label_newnote" 
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".RegistActivity"
-            android:label="@string/regist" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:label="@string/regist" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="com.huiqu.life.AccountActivity"
