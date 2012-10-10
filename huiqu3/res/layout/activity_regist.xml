@@ -37,41 +37,32 @@
             android:hint="@string/password"
             android:inputType="textPassword" />
 
+        <Spinner
+            android:id="@+id/spUnits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/txtWorkNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_workno"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/txtWorkPass"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/hint_work_password"
+            android:inputType="textPassword" />
+
         <Button
-            android:id="@+id/btnLogin"
+            android:id="@+id/btnRegist"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/login" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
-
-            <CheckBox
-                android:id="@+id/chbRememberPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/label_rememberPassword" />
-
-            <Button
-                android:id="@+id/btnRegist"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/regist" />
-
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/txtLostPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="10dp"
-            android:gravity="right"
-            android:text="@string/forget_password" />
-
+            android:text="@string/regist" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -37,10 +37,10 @@
 
     <Button
         android:id="@+id/btnOption"
+        style="@style/button1"
         android:layout_width="60dp"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        style="@style/button1"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:text="@string/label_play" />

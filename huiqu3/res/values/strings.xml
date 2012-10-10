@@ -34,4 +34,8 @@
     <string name="info_take_photo_complete">照片保存完毕</string>
  	<string name="label_newnote">发布新心情</string>
  	<string name="label_btnNewnote">新心情</string>
+ 	<string name="hint_workno">请输入工号</string>
+ 	<string name="hint_work_password">请输入考勤密码</string>
+ 	<string name="confirm_exit">你确定要退出吗？</string>
+ 	<string name="confirm">确认</string>
 </resources>
