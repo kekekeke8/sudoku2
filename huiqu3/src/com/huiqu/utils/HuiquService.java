@@ -14,33 +14,45 @@ import org.apache.http.util.EntityUtils;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 public class HuiquService {
-	public void call(final String service_url,final List<NameValuePair> params,final Handler callBackHandler) {
-		new Thread(new Runnable(){
+	public static final int EXCEPTION = 9999;
+	public static final int RESULT_OK = 0;
+	public void call( final List<NameValuePair> params, final Handler callBackHandler) {
+		log(params);
+		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				HttpPost httpRequest = new HttpPost(service_url);
+				HttpPost httpRequest = new HttpPost(Huiqu.I().config.getService_url());
 				Message msg = new Message();
-				Bundle data  = new Bundle();
+				Bundle data = new Bundle();
 				try {
 					httpRequest.setEntity(new UrlEncodedFormEntity(params, HTTP.UTF_8));
 					HttpResponse httpResponse = new DefaultHttpClient().execute(httpRequest);
 					if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
 						String strResult = EntityUtils.toString(httpResponse.getEntity());
-						data.putInt("ret", 0);
+						data.putInt("ret", RESULT_OK);
 						data.putString("result", strResult);
 					} else {
 						data.putInt("ret", httpResponse.getStatusLine().getStatusCode());
 						data.putString("result", httpResponse.getStatusLine().toString());
 					}
 				} catch (Exception e) {
-					data.putInt("ret", 9999);
+					data.putInt("ret", HuiquService.EXCEPTION);
 					data.putString("result", e.toString());
 				}
 				msg.setData(data);
 				callBackHandler.sendMessage(msg);
 			}
 		}).start();
+	}
+	
+	private void log(List<NameValuePair> params){
+		StringBuilder sb = new StringBuilder("service call request:");
+		for (int i = 0; i < params.size(); i++) {
+			sb.append(params.get(i).getName() + "=" + params.get(i).getValue() + "&");
+		}
+		Log.d(Huiqu.TAG_DEBUG,sb.toString());
 	}
 }

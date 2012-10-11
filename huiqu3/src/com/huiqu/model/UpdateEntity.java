@@ -3,9 +3,9 @@ package com.huiqu.model;
 import java.util.List;
 
 
-public class UpdateModel {
+public class UpdateEntity {
 	private int version = 0;
-	private List<UpdateModel> huqu = null;
+	private List<UpdateEntity> huqu = null;
 	public int getVersion() {
 		return version;
 	}

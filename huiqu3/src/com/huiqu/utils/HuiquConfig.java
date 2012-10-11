@@ -7,17 +7,22 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.List;
 
-import android.graphics.Path;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+
 import android.os.Environment;
+import android.util.Log;
 
 public class HuiquConfig {
-	private String service_url = "http://huiqu.sinaapp.com/server/s_login.php";
+	private String service_url = "http://192.168.43.17/1399/1399/server/service.php";
 	public String home_path = "/huiqu";
 	public String voice_path = "/huiqu/voice";
 	public String photo_path = "/huiqu/photo";
 	public String video_path = "/huiqu/video";
-	private String config_filename = "/huiqu/config.json";
+	private String config_filename = "/huiqu/huiqu.config";
 	
 	public HuiquConfig(){
 		init_paths();
@@ -48,34 +53,36 @@ public class HuiquConfig {
 		this.service_url = service_url;
 	}
 
-	public void saveConfig() throws IOException {
+	public void saveConfig(List<NameValuePair> params) throws IOException {
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			File sdCardDir = Environment.getExternalStorageDirectory();
-			File targetFile = new File(sdCardDir.getCanonicalPath() + config_filename);
+			File targetFile = new File(config_filename);
+			if(targetFile.exists()) targetFile.delete();
 			RandomAccessFile raf = new RandomAccessFile(targetFile, "rw");
+			for(int i = 0;i < params.size();i++){
+				raf.writeUTF(params.get(i).getName() + "=" + params.get(i).getValue() + "\n");
+			}
 			raf.seek(targetFile.length());
 			raf.close();
+			Log.d(Huiqu.TAG_DEBUG,"saveConfig sdcard ok");
+		}else{
+			Log.d(Huiqu.TAG_DEBUG,"loadConfig sdcard is not ready");
 		}
 	}
 
-	public void loadConfig() throws FileNotFoundException, IOException {
+	public List<NameValuePair> loadConfig() throws FileNotFoundException, IOException {
+		List<NameValuePair> configs = new ArrayList<NameValuePair>();
 		if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-			// 获取SD卡对应的存储目录
-			File sdCardDir = Environment.getExternalStorageDirectory();
-			// 获取指定文件对应的输入流
-			FileInputStream fis = new FileInputStream(sdCardDir.getCanonicalPath() + config_filename);
-			// 将指定输入流包装成BufferedReader
-			BufferedReader br = new BufferedReader(new InputStreamReader(fis));
-			StringBuilder sb = new StringBuilder("");
-			String line = null;
-			// 一直读，直到读到最后跳出
-			while ((line = br.readLine()) != null) {
-				// 一直追加读出的内容
-				sb.append(line);
-			}
-			// 返回读出的内容，并把它转化为字符串
-			//return sb.toString();
+				FileInputStream fis = new FileInputStream(config_filename);
+				BufferedReader br = new BufferedReader(new InputStreamReader(fis,"utf-8"));
+				String line = null;
+				while ((line = br.readLine()) != null) {
+					String [] temp = line.split("=");
+					configs.add(new BasicNameValuePair(temp[0], temp[1]));
+					Log.d(Huiqu.TAG_DEBUG,"loadConfig  read:" + line.trim());
+				}
+		}else{
+			Log.d(Huiqu.TAG_DEBUG,"loadConfig sdcard is not ready");
 		}
-
+		return configs;
 	}
 }

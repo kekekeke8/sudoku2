@@ -56,9 +56,9 @@ public class NoteAdapter extends BaseAdapter {
 				Toast.makeText(ctx, "Hello " + mNotes.get(position).getNote(), 500).show();
 			}
 		});
-		icon.setBackgroundResource(Integer.parseInt(mNotes.get(position).getUser_info().getIcon()));
+		icon.setBackgroundResource(mNotes.get(position).getUser_icon());
 		holder.note.setText(mNotes.get(position).getNote());
-		holder.user_name.setText((String) mNotes.get(position).getUser_info().getName());
+		holder.user_name.setText((String) mNotes.get(position).getUserNickname());
 		holder.modify_date.setText(mNotes.get(position).getModify_date().toLocaleString());
 		return convertView;
 	}

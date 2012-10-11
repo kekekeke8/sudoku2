@@ -1,25 +1,20 @@
 package com.huiqu.work;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
-import com.huiqu.common.NoTitleActivity;
+import com.huiqu.common.HuiquActivity;
 import com.huiqu.life.NoteActivity;
 import com.huiqu.life.PhotoActivity;
 import com.huiqu.life.RecordActivity;
-import com.huiqu.utils.Huiqu;
 
-public class MainActivity extends NoTitleActivity implements OnClickListener {
+public class MainActivity extends HuiquActivity implements OnClickListener {
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -65,4 +60,27 @@ public class MainActivity extends NoTitleActivity implements OnClickListener {
 			break;
 		}
 	}
+	private void exit(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setMessage(this.getResources().getString(R.string.confirm_exit));
+		builder.setTitle(this.getResources().getString(R.string.confirm));
+		
+		builder.setPositiveButton(this.getResources().getString(android.R.string.yes), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				MainActivity.this.finish();
+			}
+		});
+		builder.setNegativeButton(this.getResources().getString(android.R.string.no), new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		builder.show();
+    }
+    
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {		
+		if(keyCode == KeyEvent.KEYCODE_BACK) {exit(); return false;}
+		return super.onKeyDown(keyCode, event);
+	}	
 }

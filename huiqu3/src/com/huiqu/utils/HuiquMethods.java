@@ -5,33 +5,39 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.os.Handler;
 
 
 public class HuiquMethods {
-	private Huiqu huiqu;
 	private HuiquService service;
 	private HuiquConfig config;
 	
-	public HuiquMethods(Huiqu huiqu,HuiquService service,HuiquConfig config){
-		this.huiqu = huiqu;
+	public HuiquMethods(HuiquService service,HuiquConfig config){
 		this.service = service;
 		this.config = config;
 	}
-	private JSONObject to_json(String jsonString) {
-		try {
-			return new JSONObject(jsonString);
-		} catch (JSONException e) {
-			return null;
-		}
-	}
-	public void login(String login_id, String login_password, final Handler  callBackHandler) {
+	public void login(String login_id, String login_password, final HuiquServiceHandler  callBackHandler) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("m", "login"));
 		params.add(new BasicNameValuePair("login_id", login_id));
 		params.add(new BasicNameValuePair("login_password", login_password));
-		service.call(config.getService_url(),params,callBackHandler);
+		service.call(params,callBackHandler);
+	}
+	
+	public void getschools(final HuiquServiceHandler  callBackHandler) {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("m", "schools"));
+		service.call(params,callBackHandler);
+	}
+	public void regist(String regist_email,String regist_password,String regist_school,String work_no,String work_pass, final HuiquServiceHandler  callBackHandler){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("m", "regist"));
+		params.add(new BasicNameValuePair("regist_email", regist_email));
+		params.add(new BasicNameValuePair("regist_password", regist_password));
+		params.add(new BasicNameValuePair("regist_school", regist_school));
+		params.add(new BasicNameValuePair("work_no", work_no));
+		params.add(new BasicNameValuePair("work_pass", work_pass));
+		service.call(params,callBackHandler);
 	}
 }

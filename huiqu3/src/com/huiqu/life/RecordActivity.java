@@ -37,7 +37,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		String mode = this.getIntent().getStringExtra("mode");
 		if (mode != null) {
 			if (mode.equals("ui")) {
@@ -59,7 +59,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 		listview = (ListView) findViewById(R.id.listview);
 		prog.setVisibility(View.VISIBLE);
 		listview.setVisibility(View.INVISIBLE);
-		
+
 		final Handler handler = new Handler() {
 			public void handleMessage(Message message) {
 				VoiceAdapter adapter = (VoiceAdapter) message.obj;
@@ -77,6 +77,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 			}
 		}.start();
 	}
+
 	public List<Map<String, Object>> listfile() {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		File[] files = Utils.getVoiceList();
@@ -92,7 +93,7 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 	}
 
 	private boolean showUI = false;
-	
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_record, menu);
@@ -113,37 +114,33 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 					String target = Huiqu.I().config.voice_path + "/voice" + dateFormater.format(new Date()) + source.substring(source.lastIndexOf("."), source.length());
 					Utils.movefile(source, target);
 
-					if (!this.showUI)
-						this.finish();
+					if (!this.showUI) this.finish();
 					else
 						showfile();
-
 				}
 			}
 			break;
 		}
+		if (!this.showUI) this.finish();
 	}
 
 	@Override
 	public void onClick(View v) {
-		if (v.getId() == R.id.btnRecord) {
-			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-			intent.setType("audio/*");
-			startActivityForResult(intent, 0);
-		} else {
-
-		}
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.setType("audio/*");
+		startActivityForResult(intent, 0);
 	}
 
 	private Map<String, Object> selectedItem = null;
 
-		@Override
+	@Override
 	public void onCompletion(MediaPlayer arg0) {
 		this.selectedItem = null;
 		getString(R.string.label_play);
 	}
 
 	private Button lastButton = null;
+
 	@Override
 	public void itemOptionOnClick(Map<String, Object> item, int position, Button button) {
 		try {
@@ -153,8 +150,8 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 				if (item != null) {
 					File file = (File) item.get("file");
 					if (file.exists()) {
-						if(player != null){
-							if(player.isPlaying()) 
+						if (player != null) {
+							if (player.isPlaying())
 								player.stop();
 							player.release();
 							player = null;
@@ -164,14 +161,15 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 						player.setDataSource(file.getAbsolutePath());
 						player.prepare();
 						player.start();
-						if(lastButton != null)	
+						if (lastButton != null)
 							lastButton.setText(getString(R.string.label_play));
 						button.setText(getString(R.string.label_stop));
 					}
 					this.selectedItem = item;
 				}
 			} else {
-				if(player.isPlaying()) player.stop();				
+				if (player.isPlaying())
+					player.stop();
 				this.selectedItem = null;
 				button.setText(getString(R.string.label_play));
 			}
@@ -179,6 +177,6 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 		} catch (Exception e) {
 			e.printStackTrace();
 			getString(R.string.label_play);
-		}	
+		}
 	}
 }

@@ -33,7 +33,7 @@ import android.widget.Toast;
 import com.huiqu.common.HuiquActivity;
 import com.huiqu.common.NoteAdapter;
 import com.huiqu.model.NoteEntity;
-import com.huiqu.model.UserEntity;
+import com.huiqu.model.AbstractEntity;
 import com.huiqu.utils.Huiqu;
 import com.huiqu.work.R;
 
@@ -145,9 +145,9 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 
 	public void doPostNote(String note) {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("login_id", Huiqu.I().user.getId()));
+		params.add(new BasicNameValuePair("login_id", Huiqu.I().user.getEmail()));
 		params.add(new BasicNameValuePair("note", note));
-		Huiqu.I().service.call(Huiqu.I().config.getService_url(), params, new Handler() {
+		Huiqu.I().service.call(params, new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);

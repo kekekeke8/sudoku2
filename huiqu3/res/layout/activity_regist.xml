@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,8 +7,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:orientation="vertical"
         android:padding="@dimen/padding10" >
 
@@ -18,51 +16,97 @@
             android:layout_height="100dp"
             android:src="@drawable/title" />
 
-        <EditText
-            android:id="@+id/txtEmail"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_email"
-            android:inputType="textEmailAddress" >
+            android:layout_height="match_parent" >
 
-            <requestFocus />
-        </EditText>
+            <RelativeLayout
+                android:id="@+id/regist_process_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible" >
 
-        <EditText
-            android:id="@+id/txtPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/password"
-            android:inputType="textPassword" />
+                <ProgressBar
+                    android:id="@+id/prog"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="84dp"
+                    android:visibility="visible" />
 
-        <Spinner
-            android:id="@+id/spUnits"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/prog"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="14dp"
+                    android:text="@string/regist_progress"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/moreitem_text_mode_color" />
 
-        <EditText
-            android:id="@+id/txtWorkNo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_workno"
-            android:inputType="textEmailAddress" />
+            </RelativeLayout>
 
-        <EditText
-            android:id="@+id/txtWorkPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/hint_work_password"
-            android:inputType="textPassword" />
+            <LinearLayout
+                android:id="@+id/regist_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="visible" >
 
-        <Button
-            android:id="@+id/btnRegist"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/regist" />
+                <EditText
+                    android:id="@+id/txtEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress" >
+
+                    <requestFocus />
+                </EditText>
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+
+                <Spinner
+                    android:id="@+id/spUnits"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:id="@+id/txtWorkNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_workno"
+                    android:inputType="textEmailAddress" />
+
+                <EditText
+                    android:id="@+id/txtWorkPass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:hint="@string/hint_work_password"
+                    android:inputType="textPassword" />
+
+                <Button
+                    android:id="@+id/btnRegist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/regist" />
+
+                <Button
+                    android:id="@+id/btnCancel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/label_return" />
+            </LinearLayout>
+        </FrameLayout>
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

@@ -3,58 +3,72 @@
     <style name="AppTheme" parent="android:Theme.Light" />
 
     <style name="menu_button">
-       	<item name="android:textSize">18dp</item> 
+        <item name="android:textSize">18dp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textStyle">bold</item>      
+        <item name="android:textStyle">bold</item>
     </style>
+
     <style name="menu_button1" parent="menu_button">
-         <item name="android:background">@drawable/menu_button1</item>
+        <item name="android:background">@drawable/menu_button1</item>
     </style>
-     <style name="menu_button2" parent="menu_button">
-         <item name="android:background">@drawable/menu_button2</item>
+
+    <style name="menu_button2" parent="menu_button">
+        <item name="android:background">@drawable/menu_button2</item>
     </style>
-     <style name="menu_button3" parent="menu_button">
-         <item name="android:background">@drawable/menu_button3</item>
+
+    <style name="menu_button3" parent="menu_button">
+        <item name="android:background">@drawable/menu_button3</item>
     </style>
-     <style name="menu_button4" parent="menu_button">
-         <item name="android:background">@drawable/menu_button4</item>
+
+    <style name="menu_button4" parent="menu_button">
+        <item name="android:background">@drawable/menu_button4</item>
     </style>
-     <style name="menu_button5" parent="menu_button">
-         <item name="android:background">@drawable/menu_button5</item>
+
+    <style name="menu_button5" parent="menu_button">
+        <item name="android:background">@drawable/menu_button5</item>
     </style>
-     <style name="menu_button6" parent="menu_button">
-         <item name="android:background">@drawable/menu_button6</item>
+
+    <style name="menu_button6" parent="menu_button">
+        <item name="android:background">@drawable/menu_button6</item>
     </style>
-    
-     
-     <style name="button">
-       	<item name="android:textSize">12dp</item> 
+
+    <style name="button">
+        <item name="android:textSize">12dp</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textStyle">bold</item>  
+        <item name="android:textStyle">bold</item>
         <item name="android:layout_margin">4dp</item>
     </style>
+
     <style name="button1" parent="button">
-         <item name="android:background">@drawable/menu_button1</item>
+        <item name="android:background">@drawable/menu_button1</item>
     </style>
+
     <style name="button2" parent="button">
-         <item name="android:background">@drawable/menu_button2</item>
+        <item name="android:background">@drawable/menu_button2</item>
     </style>
-     <style name="button3" parent="button">
-         <item name="android:background">@drawable/menu_button3</item>
+
+    <style name="button3" parent="button">
+        <item name="android:background">@drawable/menu_button3</item>
     </style>
+
     <style name="button4" parent="button">
-         <item name="android:background">@drawable/menu_button4</item>
+        <item name="android:background">@drawable/menu_button4</item>
     </style>
+
     <style name="button5" parent="button">
-         <item name="android:background">@drawable/menu_button5</item>
+        <item name="android:background">@drawable/menu_button5</item>
     </style>
+
     <style name="button6" parent="button">
-         <item name="android:background">@drawable/menu_button6</item>
+        <item name="android:background">@drawable/menu_button6</item>
     </style>
+
     <style name="button_back" parent="button">
-         <item name="android:background">@drawable/menu_button5</item>
+        <item name="android:background">@drawable/menu_button5</item>
     </style>
+
     <style name="button_home" parent="button">
-         <item name="android:background">@drawable/menu_button6</item>
+        <item name="android:background">@drawable/menu_button6</item>
     </style>
+
 </resources>
