@@ -45,6 +45,7 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener {
 				setContentView(R.layout.activity_photo);
 				initNavbar(getString(R.string.label_photo));
 				this.findViewById(R.id.btnCapture).setOnClickListener(this);
+				this.findViewById(R.id.btnSelect).setOnClickListener(this);
 				showfile();
 			} else {
 				cameraMethod();
@@ -150,7 +151,7 @@ public class PhotoActivity extends HuiquActivity implements OnClickListener {
 			cameraMethod();
 			break;
 
-		case R.id.btnSelectPhoto:
+		case R.id.btnSelect:
 			selectPhoto();
 			break;
 		}

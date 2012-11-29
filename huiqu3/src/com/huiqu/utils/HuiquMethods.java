@@ -40,4 +40,13 @@ public class HuiquMethods {
 		params.add(new BasicNameValuePair("work_pass", work_pass));
 		service.call(params,callBackHandler);
 	}
+	//notes&page_index=1&page_size=12&login_id=test@huiqu.com&request_type=addnote&note=helloworld!!!!!!!!!!
+	public void getNotes(String login_id,int page_index,int page_size,final HuiquServiceHandler callBackhandler){
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("m", "notes"));
+		params.add(new BasicNameValuePair("regist_id", login_id));
+		params.add(new BasicNameValuePair("page_index", Integer.toString(page_index)));
+		params.add(new BasicNameValuePair("page_size", Integer.toString(page_size)));
+		service.call(params,callBackhandler);
+	}
 }

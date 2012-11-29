@@ -37,21 +37,11 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		String mode = this.getIntent().getStringExtra("mode");
-		if (mode != null) {
-			if (mode.equals("ui")) {
-				showUI = true;
-				setContentView(R.layout.activity_record);
-				initNavbar(getString(R.string.label_voice));
-				this.findViewById(R.id.btnRecord).setOnClickListener(this);
-				showfile();
-			} else {
-				this.onClick(null);
-			}
-		} else {
-			this.onClick(null);
-		}
+		setContentView(R.layout.activity_record);
+		initNavbar(getString(R.string.label_voice));
+		this.findViewById(R.id.btnRecord).setOnClickListener(this);
+		this.findViewById(R.id.btnSelect).setOnClickListener(this);
+		showfile();
 	}
 
 	private void showfile() {
@@ -96,7 +86,6 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.activity_record, menu);
 		return true;
 	}
 
@@ -113,22 +102,33 @@ public class RecordActivity extends HuiquActivity implements OnClickListener, It
 					SimpleDateFormat dateFormater = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 					String target = Huiqu.I().config.voice_path + "/voice" + dateFormater.format(new Date()) + source.substring(source.lastIndexOf("."), source.length());
 					Utils.movefile(source, target);
-
-					if (!this.showUI) this.finish();
-					else
-						showfile();
+					showfile();
 				}
 			}
 			break;
+		case 1:
+			if (resultCode == RESULT_OK) {
+				showfile();
+			}
+			break;
 		}
-		if (!this.showUI) this.finish();
 	}
 
 	@Override
 	public void onClick(View v) {
-		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-		intent.setType("audio/*");
-		startActivityForResult(intent, 0);
+		if(v.getId() == R.id.btnRecord){
+			doRecord();
+		}else if(v.getId() == R.id.btnSelect){
+			Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+			intent.setType("audio/*");
+			startActivityForResult(intent, 0);
+		}
+	}
+
+	public void doRecord() {
+		Intent intent = new Intent();
+		intent.setClass(RecordActivity.this, VoiceNoteActivity.class);
+		startActivityForResult(intent,1);
 	}
 
 	private Map<String, Object> selectedItem = null;

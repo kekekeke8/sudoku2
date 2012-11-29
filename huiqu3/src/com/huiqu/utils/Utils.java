@@ -1,13 +1,13 @@
 package com.huiqu.utils;
 
 import java.io.File;
-import java.io.FileFilter;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.Intent.ShortcutIconResource;
 
 public class Utils {
 	public String record(Activity activity){
@@ -31,7 +31,7 @@ public class Utils {
 		try {
 			File huiqu_path = new File(path);
 			if(!huiqu_path.exists()){
-				huiqu_path.mkdir();
+				huiqu_path.mkdirs();
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,4 +90,15 @@ public class Utils {
 	         fileList.put(fileName, filePath);
 	     }
 	 }
+	public static  void addShortcut(Activity context,int shortcut_name,int icon){         
+		Intent shortcut = new Intent("com.android.launcher.action.INSTALL_SHORTCUT");   //快捷方式的名称         
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_NAME, context.getString(shortcut_name));  //       
+		shortcut.putExtra("duplicate", false);                
+		ComponentName comp = new ComponentName(context.getPackageName(), "."+context.getLocalClassName());  
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(Intent.ACTION_MAIN).setComponent(comp));         
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_INTENT, new Intent(context,context.getClass()));          
+		ShortcutIconResource iconRes = Intent.ShortcutIconResource.fromContext(context, icon);         
+		shortcut.putExtra(Intent.EXTRA_SHORTCUT_ICON_RESOURCE, iconRes);                       
+		context.sendBroadcast(shortcut);     
+	}
 }

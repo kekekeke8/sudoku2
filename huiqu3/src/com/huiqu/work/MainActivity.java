@@ -13,6 +13,7 @@ import com.huiqu.common.HuiquActivity;
 import com.huiqu.life.NoteActivity;
 import com.huiqu.life.PhotoActivity;
 import com.huiqu.life.RecordActivity;
+import com.huiqu.utils.Utils;
 
 public class MainActivity extends HuiquActivity implements OnClickListener {
 
@@ -20,17 +21,15 @@ public class MainActivity extends HuiquActivity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		Utils.addShortcut(this, R.string.app_name, R.drawable.ic_launcher);
 		findViewById(R.id.btnNote).setOnClickListener(this);
 		findViewById(R.id.btnRecord).setOnClickListener(this);
 		findViewById(R.id.btnPhoto).setOnClickListener(this);
-		findViewById(R.id.btnRecord).setOnClickListener(this);
+		//findViewById(R.id.btnRecord).setOnClickListener(this);
 		findViewById(R.id.btnWork).setOnClickListener(this);
-		findViewById(R.id.btnAbout).setOnClickListener(this);
+		//findViewById(R.id.btnAbout).setOnClickListener(this);
 	}
 	
-	
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.activity_main, menu);
@@ -58,6 +57,12 @@ public class MainActivity extends HuiquActivity implements OnClickListener {
 			iNote.setClass(MainActivity.this, NoteActivity.class);
 	        this.startActivity(iNote);
 			break;
+		case R.id.btnWork:
+			Intent iwork = new Intent();
+			iwork.putExtra("mode","ui");
+			iwork.setClass(MainActivity.this, KaoQinActivity.class);
+	        this.startActivity(iwork);
+			break;
 		}
 	}
 	private void exit(){
@@ -83,4 +88,7 @@ public class MainActivity extends HuiquActivity implements OnClickListener {
 		if(keyCode == KeyEvent.KEYCODE_BACK) {exit(); return false;}
 		return super.onKeyDown(keyCode, event);
 	}	
+	
+	
+
 }

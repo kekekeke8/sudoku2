@@ -1,23 +1,20 @@
 package com.huiqu.life;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,14 +30,16 @@ import android.widget.Toast;
 import com.huiqu.common.HuiquActivity;
 import com.huiqu.common.NoteAdapter;
 import com.huiqu.model.NoteEntity;
-import com.huiqu.model.AbstractEntity;
 import com.huiqu.utils.Huiqu;
+import com.huiqu.utils.HuiquServiceHandler;
 import com.huiqu.work.R;
 
 @SuppressLint("HandlerLeak")
 public class NoteActivity extends HuiquActivity implements OnClickListener, OnItemSelectedListener, OnScrollListener {
 
 	private boolean showUI = false;
+	private int page_index = 0;
+	private int page_size = 20;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -62,7 +61,7 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 					newNote();
 				}
 			});
-			showData();
+			showData(page_index,page_size);
 		}else{
 			newNote();
 		}
@@ -87,39 +86,65 @@ public class NoteActivity extends HuiquActivity implements OnClickListener, OnIt
 
 
 	private ListView listview;
-	private void showData() {
+	private void showData(final int page_index,final int page_size) {
 		final ProgressBar prog = (ProgressBar) findViewById(R.id.prog);		
 		prog.setVisibility(View.VISIBLE);
 		listview.setVisibility(View.INVISIBLE);
 		
-		final Handler handler = new Handler() {
-			public void handleMessage(Message message) {
-				NoteAdapter adapter = (NoteAdapter) message.obj;
-				listview.setAdapter(adapter);
-				prog.setVisibility(View.INVISIBLE);
-				listview.setVisibility(View.VISIBLE);
+		final HuiquServiceHandler callBackhandler = new HuiquServiceHandler() {
+			@Override
+			public void handleResult(JSONObject data) {
+				try {
+					if (data.getInt("rowcount") > 0) {
+						List<NoteEntity> notes = new ArrayList<NoteEntity>();
+						JSONArray rows = data.getJSONArray("rows");
+						for (int i = 0; i < rows.length(); i++) {
+							JSONObject jo = rows.getJSONObject(i);
+						
+						}
+						Log.e(Huiqu.TAG_DEBUG, "getNotes count " + data.getInt("rowcount"));
+						
+						NoteAdapter adapter = new NoteAdapter(NoteActivity.this,notes); 
+						listview.setAdapter(adapter);
+						prog.setVisibility(View.INVISIBLE);
+						listview.setVisibility(View.VISIBLE);
+						
+					} else {
+						Log.e(Huiqu.TAG_DEBUG, "getSchools empty");
+					}
+				} catch (JSONException e) {
+					e.printStackTrace();
+					Log.e(Huiqu.TAG_ERROR, "getSchools " + e);
+				}
+			}
+			@Override
+			public void handleError(int ret, String message) {
+				
 			}
 		};
 
 		new Thread() {
 			@Override
 			public void run() {
-				Message message = handler.obtainMessage(0, new NoteAdapter(NoteActivity.this, getData()));
-				handler.sendMessage(message);
+				
+				Huiqu.I().methods.getNotes(Huiqu.I().user.getEmail(), page_index, page_size, callBackhandler);
+				//Message message = handler.obtainMessage(0, new NoteAdapter(NoteActivity.this, getData()));
+				//handler.sendMessage(message);
 			}
 		}.start();
 	}
+	
 	public List<NoteEntity> getData() {
 		List<NoteEntity> list = new ArrayList<NoteEntity>();
-		for (int i = 0;i < 120; i++) {
-			NoteEntity note = new NoteEntity();
-			note.setNote("大家好！书法俱乐部就要开始活动啦！7月24日下周二18:00——19:30首享大会议室，请大家准备好书法用具，毛笔：中号兼毫，硬笔：用签字笔即可，墨汁、宣纸、砚台工会统一购买。请大家每次携带好用笔参加学习。" + i);
-			note.setUser_id("2222");
-			note.setUserNickname("工会");
-			note.setUser_icon(R.drawable.ic_launcher);
-			note.setModify_date(new Date());
-			list.add(note);
-		}
+//		for (int i = 0;i < 120; i++) {
+//			NoteEntity note = new NoteEntity();
+//			note.setNote("大家好！书法俱乐部就要开始活动啦！7月24日下周二18:00——19:30首享大会议室，请大家准备好书法用具，毛笔：中号兼毫，硬笔：用签字笔即可，墨汁、宣纸、砚台工会统一购买。请大家每次携带好用笔参加学习。" + i);
+//			note.setUser_id("2222");
+//			note.setUserNickname("工会");
+//			note.setUser_icon(R.drawable.ic_launcher);
+//			note.setModify_date(new Date());
+//			list.add(note);
+//		}
 		return list;
 	}
 	

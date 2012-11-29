@@ -12,9 +12,11 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
 
     <application
-        android:icon="@drawable/ic_launcher"
+        android:icon="@drawable/app"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -22,28 +24,31 @@
             android:label="@string/title_activity_main" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </activity>
-        <activity
-            android:name="com.huiqu.life.RecordActivity"
-            android:icon="@drawable/icon_microphone_on"
-            android:label="@string/title_activity_record" >
-            <intent-filter>
+  		<activity
+            android:name="com.huiqu.life.VoiceNoteActivity"
+            android:label="@string/title_activity_record"
+            android:icon="@drawable/voice1"
+            android:screenOrientation="portrait" >
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
+            android:name="com.huiqu.life.RecordActivity"
+            android:icon="@drawable/voice1"
+            android:label="@string/title_activity_record" >
+        </activity>
+        <activity
             android:name="com.huiqu.life.PhotoActivity"
-            android:icon="@drawable/icon_camera_on"
+            android:icon="@drawable/photo1"
             android:label="@string/title_activity_photo" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -53,7 +58,7 @@
         </activity>
         <activity
             android:name="com.huiqu.life.NoteActivity"
-            android:icon="@drawable/icon_write_on"
+            android:icon="@drawable/note1"
             android:label="@string/title_activity_note" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -62,19 +67,39 @@
         </activity>
         <activity
             android:name="com.huiqu.life.NewNoteActivity"
-            android:icon="@drawable/icon_write_on"
-            android:label="@string/label_newnote" 
-            android:windowSoftInputMode="adjustResize">
+            android:icon="@drawable/note1"
+            android:label="@string/label_newnote"
+            android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
             android:name=".RegistActivity"
-            android:label="@string/regist" 
-            android:screenOrientation="portrait">
+            android:label="@string/regist"
+            android:screenOrientation="portrait" >
+        </activity>
+        
+        
+         <activity
+            android:name="com.huiqu.work.KaoQinActivity"
+            android:icon="@drawable/kaoqin1"
+            android:label="@string/title_activity_kaoqin" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
         </activity>
         <activity
             android:name="com.huiqu.life.AccountActivity"
             android:label="@string/title_activity_account" >
         </activity>
+
+        <receiver android:name="com.huiqu.appwidget.HuiquLauncherWidget" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/huiqu_widget_info" />
+        </receiver>
     </application>
 
 </manifest>

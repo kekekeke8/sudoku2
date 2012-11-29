@@ -20,7 +20,7 @@
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="fill_parent"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:src="@drawable/title" />
 
             <LinearLayout
@@ -35,6 +35,7 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_abacus_on"
                     android:text="@string/label_note" />
 
                 <Button
@@ -44,16 +45,9 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_comment_on"
                     android:text="@string/label_photo" />
 
-                <Button
-                    android:id="@+id/btnRecord"
-                    style="@style/menu_button3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_margin="3dp"
-                    android:layout_weight="1"
-                    android:text="@string/label_voice" />
             </LinearLayout>
 
             <LinearLayout
@@ -62,31 +56,52 @@
                 android:layout_weight="1" >
 
                 <Button
+                    android:id="@+id/btnRecord"
+                    style="@style/menu_button3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_abacus_on"
+                    android:text="@string/label_voice" />
+
+                <Button
                     android:id="@+id/btnAccount"
                     style="@style/menu_button4"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_abacus_on"
                     android:text="@string/label_account" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" >
 
                 <Button
                     android:id="@+id/btnAbout"
-                    style="@style/menu_button5"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="3dp"
                     android:layout_weight="1"
+                    style="@style/menu_button5"
+                    android:drawableTop="@drawable/icon_abacus_on"
+                    android:layout_margin="3dp"
                     android:text="@string/label_about" />
 
                 <Button
                     android:id="@+id/btnWork"
-                    style="@style/menu_button6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_margin="3dp"
                     android:layout_weight="1"
+                    style="@style/menu_button6"
+                    android:layout_margin="3dp"
+                    android:drawableTop="@drawable/icon_abacus_on"
                     android:text="@string/label_work" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -97,7 +112,10 @@
             android:gravity="bottom"
             android:orientation="vertical"
             android:paddingBottom="10dp" >
+
         </LinearLayout>
     </LinearLayout>
+
+    
 
 </RelativeLayout>

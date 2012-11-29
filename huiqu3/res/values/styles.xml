@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="AppTheme" parent="android:Theme.Light" />
 
@@ -10,26 +10,32 @@
 
     <style name="menu_button1" parent="menu_button">
         <item name="android:background">@drawable/menu_button1</item>
+        <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="menu_button2" parent="menu_button">
         <item name="android:background">@drawable/menu_button2</item>
+         <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="menu_button3" parent="menu_button">
         <item name="android:background">@drawable/menu_button3</item>
+        <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="menu_button4" parent="menu_button">
         <item name="android:background">@drawable/menu_button4</item>
+        <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="menu_button5" parent="menu_button">
         <item name="android:background">@drawable/menu_button5</item>
+        <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="menu_button6" parent="menu_button">
         <item name="android:background">@drawable/menu_button6</item>
+        <item name="android:paddingTop">20dp</item>
     </style>
 
     <style name="button">
@@ -64,11 +70,19 @@
     </style>
 
     <style name="button_back" parent="button">
-        <item name="android:background">@drawable/menu_button5</item>
+        <item name="android:background">@drawable/nav_back</item>
     </style>
 
     <style name="button_home" parent="button">
-        <item name="android:background">@drawable/menu_button6</item>
+        <item name="android:background">@drawable/nav_button</item>
     </style>
-
+	<style name="button_record" parent="button">
+        <item name="android:background">@drawable/button_record</item>
+    </style>
+    <style name="button_play" parent="button">
+        <item name="android:background">@drawable/button_play</item>
+    </style>
+    <style name="button_remove" parent="button">
+        <item name="android:background">@drawable/button_remove</item>
+    </style>
 </resources>

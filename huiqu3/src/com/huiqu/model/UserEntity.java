@@ -7,7 +7,7 @@ public class UserEntity extends AbstractEntity{
 	public UserEntity(JSONObject data) {
 		super(data);
 	}
-	
+
 	public String getName(){
 		return getValue("name");
 	}

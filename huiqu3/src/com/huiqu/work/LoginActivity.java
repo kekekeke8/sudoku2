@@ -129,7 +129,9 @@ public class LoginActivity extends NoTitleActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			return false;
+			this.setResult(RESULT_CANCELED);
+			this.finish();
+			return true;
 		}
 		return super.onKeyLongPress(keyCode, event);
 	}

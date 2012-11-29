@@ -1,28 +1,29 @@
 <resources>
 
-    <string name="app_name"></string>
+    <string name="app_name">汇趣工作</string>
     <string name="menu_settings">设置</string>
     <string name="title_activity_main">汇趣工作</string>
     <string name="title_activity_first_time">欢迎使用汇趣工作</string>
     <string name="title_activity_login">新用户注册</string>
     <string name="title_activity_full_screen">FullScreenActivity</string>
-    <string name="title_activity_record">语音笔记</string>
-    <string name="title_activity_photo">图像记忆</string>
-    <string name="title_activity_note">心情日记</string>
+    <string name="title_activity_record">汇趣录音</string>
+    <string name="title_activity_photo">汇趣照片</string>
+    <string name="title_activity_note">汇趣日记</string>
+    <string name="title_activity_kaoqin">汇趣考勤</string>
     <string name="regist">注册新用户</string>
     <string name="login">登录</string>
     <string name="hint_email">汇趣工作   用户邮件地址</string>
     <string name="password">密码</string>
     <string name="forget_password">忘记密码?</string>
-    <string name="label_note">心情日记</string>
+    <string name="label_note">汇趣日记</string>
     <string name="label_account">帐目日记</string>
-    <string name="label_voice">录音笔记</string>
-    <string name="label_photo">图片印象</string>
+    <string name="label_voice">汇趣录音</string>
+    <string name="label_photo">汇趣照片</string>
     <string name="label_about">关于我们</string>
-    <string name="label_work">汇趣工作</string>
+    <string name="label_work">汇趣考勤</string>
     <string name="label_rememberPassword">记住密码</string>
     <string name="label_return">返回</string>
-    <string name="label_home">首页</string>
+    <string name="label_home">   首页</string>
     <string name="label_capture">拍照</string>
     <string name="label_select_photo">选择照片</string>
     <string name="label_cancel">取消</string>
@@ -41,4 +42,10 @@
  	<string name="return_login">返回登录</string>
  	<string name="regist_progress">新用户注册中...</string>
  	<string name="label_loging">用户登录中...</string>
+ 	<string name="label_record">开始录音</string>
+ 	<string name="label_stoprecord">停止录音</string>
+ 	<string name="label_select_voice">选择已有音频</string>
+ 	<string name="label_kaoqin_chaxun">考勤查询</string>
+ 	<string name="label_kaoqin_qingjia">考勤请假</string>
+ 	<string name="label_kaoqin_shenpi">请假审批</string>
 </resources>

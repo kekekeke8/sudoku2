@@ -14,7 +14,8 @@ public class Huiqu {
 	}
 	
 	public boolean checkLogin(){
-		return user != null;
+		//return user != null;
+		return true;
 	}
 	
 	public HuiquConfig config = new HuiquConfig();

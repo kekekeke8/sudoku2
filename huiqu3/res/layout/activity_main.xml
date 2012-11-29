@@ -1,8 +1,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/bg1" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg1"
+    tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -17,16 +18,29 @@
             android:layout_height="fill_parent"
             android:orientation="vertical" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="10dp" >
+
+            </LinearLayout>
+
             <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="fill_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/title" />
+                android:layout_height="wrap_content"
+                android:src="@drawable/banner" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:layout_weight="1" >
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <Button
                     android:id="@+id/btnNote"
@@ -35,8 +49,8 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
-                    android:text="@string/label_note"
-                    />
+                    android:drawableTop="@drawable/icon_note"
+                    android:text="@string/label_note" />
 
                 <Button
                     android:id="@+id/btnPhoto"
@@ -45,57 +59,61 @@
                     android:layout_height="match_parent"
                     android:layout_margin="3dp"
                     android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_photo"
                     android:text="@string/label_photo" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
+                android:layout_height="match_parent"
+                android:layout_weight="1">
+
+                <Button
+                    android:id="@+id/btnRecord"
+                    style="@style/menu_button4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_record"
+                    android:text="@string/label_voice" />
+
+                <Button
+                    android:id="@+id/btnWork"
+                    style="@style/menu_button5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_update"
+                    android:text="@string/label_kaoqin_chaxun" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
                 <Button
                     android:id="@+id/btnRecord"
                     style="@style/menu_button3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_margin="3dp"
-                    android:text="@string/label_voice" />
-
-                <Button
-                    android:id="@+id/btnAccount"
-                    style="@style/menu_button4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:layout_margin="3dp"
-                    android:text="@string/label_account" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" >
-
-                <Button
-                    android:id="@+id/btnAbout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    style="@style/menu_button5"
-                    android:layout_margin="3dp"
-                    android:text="@string/label_about" />
+                    android:drawableTop="@drawable/icon_account"
+                    android:text="@string/label_kaoqin_qingjia" />
 
                 <Button
                     android:id="@+id/btnWork"
+                    style="@style/menu_button6"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    style="@style/menu_button6"
                     android:layout_margin="3dp"
-                    android:text="@string/label_work" />
+                    android:layout_weight="1"
+                    android:drawableTop="@drawable/icon_kaoqin"
+                    android:text="@string/label_kaoqin_shenpi" />
 
             </LinearLayout>
         </LinearLayout>
